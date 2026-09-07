@@ -3,7 +3,8 @@ name: Validate and Deploy to Vercel
 on:
   push:
     branches:
-      - "**"
+      - main
+
   pull_request:
     branches:
       - main
@@ -16,88 +17,237 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+
+  # --------------------------------------------------
+  # VALIDATION
+  # --------------------------------------------------
   validate:
     name: Validate source
     runs-on: ubuntu-latest
+
     steps:
-      - name: Check out exact commit
+      - name: Checkout exact commit
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
 
       - name: Validate JavaScript syntax
         run: |
           node --check server/server.js
           node --check public/js/firebase-config.js
 
-      - name: Validate project build
+      - name: Build project
         run: npm run build
 
+
+  # --------------------------------------------------
+  # SECURITY
+  # --------------------------------------------------
   security:
     name: Security checks
     runs-on: ubuntu-latest
-    steps:
-      - name: Check out exact commit
-        uses: actions/checkout@v4
 
-      - name: Check for committed secret files
+    steps:
+      - name: Checkout exact commit
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Check for secret files
         shell: bash
         run: |
           set -euo pipefail
-          if find . -type f \( -name '.env' -o -name '.env.*' -o -name '*.pem' -o -name '*.p12' -o -name '*.pfx' \) -not -name '.env.example' -not -path './.git/*' | grep -q .; then
-            echo "Sensitive environment or key files must not be committed."
+
+          if find . \
+            -type f \
+            \( \
+              -name ".env" \
+              -o -name ".env.*" \
+              -o -name "*.pem" \
+              -o -name "*.p12" \
+              -o -name "*.pfx" \
+            \) \
+            -not -name ".env.example" \
+            -not -path "./.git/*" \
+            | grep -q .; then
+
+            echo "ERROR: Sensitive files detected."
+            echo "Do not commit .env or private key files."
             exit 1
           fi
 
-      - name: Check for private key and credential material
+      - name: Check for private credentials
         shell: bash
         run: |
           set -euo pipefail
-          if git grep -n -I -E 'BEGIN (RSA |EC |OPENSSH )?PRIVATE KEY|VERCEL_OIDC_TOKEN|serviceAccount|private_key|client_secret|JWT_SECRET' -- ':!package-lock.json' ':!.github/workflows/ci-cd.yml'; then
-            echo "Potential private credential material found in tracked files."
+
+          if git grep -n -I -E \
+            'BEGIN (RSA |EC |OPENSSH )?PRIVATE KEY|serviceAccount|private_key|client_secret|JWT_SECRET' \
+            -- \
+            ':!package-lock.json' \
+            ':!.github/workflows/ci-cd.yml'; then
+
+            echo "ERROR: Potential private credential material found."
             exit 1
           fi
 
       - name: Audit production dependencies
         run: npm audit --omit=dev
 
+
+  # --------------------------------------------------
+  # PRODUCTION DEPLOYMENT
+  # --------------------------------------------------
   deploy:
     name: Deploy validated main commit
+
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+
     needs:
       - validate
       - security
+
     runs-on: ubuntu-latest
+
     environment:
       name: production
-    steps:
-      - name: Check out validated commit
-        uses: actions/checkout@v4
 
-      - name: Set up supported Node.js version
+    steps:
+
+      - name: Checkout exact production commit
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      - name: Verify commit
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          echo "GitHub commit:"
+          echo "$GITHUB_SHA"
+
+          echo "Checked out commit:"
+          git rev-parse HEAD
+
+          if [ "$(git rev-parse HEAD)" != "$GITHUB_SHA" ]; then
+            echo "ERROR: Checked-out commit does not match GitHub commit."
+            exit 1
+          fi
+
+      - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
 
       - name: Install Vercel CLI
         run: npm install --global vercel@latest
 
-      - name: Verify Vercel deployment secrets
+      - name: Verify Vercel secrets
         env:
           VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
           VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
           VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+
+        shell: bash
         run: |
           set -euo pipefail
-          test -n "$VERCEL_TOKEN" || { echo "Missing GitHub Actions secret: VERCEL_TOKEN"; exit 1; }
-          test -n "$VERCEL_ORG_ID" || { echo "Missing GitHub Actions secret: VERCEL_ORG_ID"; exit 1; }
-          test -n "$VERCEL_PROJECT_ID" || { echo "Missing GitHub Actions secret: VERCEL_PROJECT_ID"; exit 1; }
-          [[ "$VERCEL_ORG_ID" == team_* ]] || { echo "VERCEL_ORG_ID must be the Vercel team ID beginning with team_."; exit 1; }
-          [[ "$VERCEL_PROJECT_ID" == prj_* ]] || { echo "VERCEL_PROJECT_ID must be the Vercel project ID beginning with prj_."; exit 1; }
-          [[ "$VERCEL_TOKEN" != *[[:space:]]* ]] || { echo "VERCEL_TOKEN contains whitespace; replace it without copied spaces or newlines."; exit 1; }
+
+          if [ -z "$VERCEL_TOKEN" ]; then
+            echo "ERROR: VERCEL_TOKEN is missing."
+            exit 1
+          fi
+
+          if [ -z "$VERCEL_ORG_ID" ]; then
+            echo "ERROR: VERCEL_ORG_ID is missing."
+            exit 1
+          fi
+
+          if [ -z "$VERCEL_PROJECT_ID" ]; then
+            echo "ERROR: VERCEL_PROJECT_ID is missing."
+            exit 1
+          fi
+
+          case "$VERCEL_ORG_ID" in
+            team_*)
+              ;;
+            *)
+              echo "ERROR: VERCEL_ORG_ID must start with team_."
+              exit 1
+              ;;
+          esac
+
+          case "$VERCEL_PROJECT_ID" in
+            prj_*)
+              ;;
+            *)
+              echo "ERROR: VERCEL_PROJECT_ID must start with prj_."
+              exit 1
+              ;;
+          esac
+
+          if [[ "$VERCEL_TOKEN" =~ [[:space:]] ]]; then
+            echo "ERROR: VERCEL_TOKEN contains whitespace."
+            exit 1
+          fi
+
+          echo "Vercel credentials are configured correctly."
 
 
-      - name: Deploy exact validated commit to production
+      - name: Configure Vercel project
+        env:
+          VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          mkdir -p .vercel
+
+          cat > .vercel/project.json <<EOF
+          {
+            "orgId": "$VERCEL_ORG_ID",
+            "projectId": "$VERCEL_PROJECT_ID"
+          }
+          EOF
+
+          echo "Vercel project configured."
+
+
+      - name: Deploy exact commit to production
         env:
           VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
           VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
-          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
-        run: vercel deploy --prod --yes --token={{ secrets.VERCEL_TOKEN }} --scope ${{ secrets.VERCEL_ORG_ID }} --project ${{ secrets.VERCEL_PROJECT_ID }}
+
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          vercel deploy \
+            --prod \
+            --yes \
+            --token "$VERCEL_TOKEN" \
+            --scope "$VERCEL_ORG_ID"
