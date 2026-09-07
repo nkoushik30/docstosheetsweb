@@ -95,16 +95,6 @@ jobs:
           [[ "$VERCEL_TOKEN" != *[[:space:]]* ]] || { echo "VERCEL_TOKEN contains whitespace; replace it without copied spaces or newlines."; exit 1; }
 
 
-      - name: Verify Vercel token authentication
-        env:
-          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
-        run: |
-          set -euo pipefail
-          if ! vercel whoami --token "$VERCEL_TOKEN"; then
-            echo "Vercel authentication failed. Check that VERCEL_TOKEN is valid and belongs to an active Vercel account with access to the target org/project."
-            exit 1
-          fi
-
       - name: Deploy exact validated commit to production
         env:
           VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
