@@ -37,7 +37,7 @@ Thumbs.db
 !.vscode/settings.json
 !.vscode/tasks.json
 !.vscode/launch.json
-
+vercel.json
 # Temporary and backup files
 *.tmp
 *.temp
