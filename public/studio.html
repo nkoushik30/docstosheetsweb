@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Google Android Studio - DocsToSheets</title>
+  <link rel="icon" type="image/png" href="logo.png">
+
+  <style>
+    body {
+      font-family: "Times New Roman", Times, serif;
+      background-color: #f9fef9;
+      color: #333;
+      padding: 20px;
+    }
+
+    h2 {
+      color: #2e7d32;
+      margin-top: 40px;
+      border-bottom: 2px solid #c8e6c9;
+      padding-bottom: 5px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 10px;
+      margin-bottom: 30px;
+      background-color: #fff;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    }
+
+    th,
+    td {
+      padding: 12px 15px;
+      text-align: left;
+      border-bottom: 1px solid #ddd;
+    }
+
+    th {
+      background-color: #a5d6a7;
+      color: #1b5e20;
+    }
+
+    header {
+      height: 350px;
+      background-color: #fffcfc;
+      display: flex;
+      align-items: center;
+      padding: 60 40px;
+      color: green;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);
+      font-weight: bold;
+      font-size: 24px;
+      gap: 10px;
+      z-index: 1000;
+    }
+
+    header .logo-text {
+      font-size: 200px;
+    }
+
+    header .logo-text sup {
+      font-size: 160px;
+      vertical-align: super;
+      color: darkgreen;
+    }
+
+    header .site-address {
+      color: #ffffff;
+      font-size: 160px;
+      user-select: text;
+    }
+
+    tr:hover {
+      background-color: #f1f8e9;
+    }
+
+    h1 {
+      text-align: center;
+    }
+
+    code {
+      background-color: #e8f5e9;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 0.95em;
+    }
+
+    nav ul {
+      list-style-type: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      /* center the items */
+    }
+
+    nav {
+      background-color: #61a988;
+      /* dark green background */
+      padding: 10px 0;
+    }
+
+    nav ul li {
+      margin: 0 20px;
+    }
+
+    nav ul li a {
+      text-decoration: none;
+      color: white;
+      font-size: 18px;
+      padding: 8px 16px;
+      border-radius: 5px;
+      transition: background-color 0.3s ease;
+    }
+
+    nav ul li a:hover {
+      background-color: #86c06b;
+    }
+
+    button {
+      background-color: #1c95ff;
+      color: #1c95ff;
+      border: none;
+      padding: 10px 20px;
+      font-size: 16px;
+      font-weight: bold;
+      border-radius: 8px;
+      transition: background-color 0.3s ease, transform 0.2s ease;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+  </style>
+</head>
+
+<body>
+
+  <h1>📱 Google Android Studio - DocsToSheets</h1>
+  <header class="navbar">
+    <div class="logo-container">
+      <div class="logo-container">
+        <img src="logo.png" alt="Logo" class="logo" />
+      </div>
+    </div>
+  </header>
+  <p><strong>Android Studio</strong> is the official Integrated Development Environment (IDE) for Google's Android
+    operating system. It is based on JetBrains' IntelliJ IDEA and designed specifically for Android app development.</p>
+
+  <h2>🔍 What is Android Studio?</h2>
+  <p>Android Studio provides developers with tools to design, build, test, and debug Android applications efficiently.
+    It offers an all-in-one development environment with a rich code editor, visual layout editor, real-time profilers,
+    and built-in support for Google services.</p>
+
+  <h2>⚙️ Key Features of Android Studio</h2>
+  <ul>
+    <li><strong>Smart Code Editor:</strong> Supports Java, Kotlin, and C++ with intelligent code completion,
+      refactoring, and code analysis.</li>
+    <li><strong>Visual Layout Editor:</strong> Drag-and-drop UI design with a real-time preview of app layouts on
+      different devices and configurations.</li>
+    <li><strong>Built-in Emulator:</strong> Quickly test your apps on multiple virtual devices without needing a
+      physical device.</li>
+    <li><strong>Instant Run:</strong> Push code and resource changes to your running app without reinstalling it.</li>
+    <li><strong>Robust Debugging:</strong> Powerful debugging tools including breakpoints, watches, and CPU/memory
+      profiling.</li>
+    <li><strong>Version Control Integration:</strong> Git, SVN, and Mercurial support for source control.</li>
+    <li><strong>Gradle Build System:</strong> Flexible build automation that supports multiple build variants and
+      dependencies.</li>
+    <li><strong>Support for Google Cloud Platform:</strong> Easily integrate with Firebase, Google APIs, and Cloud
+      services.</li>
+  </ul>
+
+  <h2>🛠️ Supported Languages</h2>
+  <ul>
+    <li><strong>Java</strong> - Traditional Android development language.</li>
+    <li><strong>Kotlin</strong> - Modern, officially recommended language for Android development.</li>
+    <li><strong>C/C++</strong> - For performance-critical parts using the Android NDK.</li>
+  </ul>
+
+  <h2>💡 Advantages of Using Android Studio</h2>
+  <ul>
+    <li>Official IDE supported and updated by Google.</li>
+    <li>Seamless integration with Android SDK and tools.</li>
+    <li>Built-in emulator saves time for testing on various devices.</li>
+    <li>Rich set of templates and wizards to speed up app creation.</li>
+    <li>Powerful code analysis and refactoring to improve code quality.</li>
+    <li>Easy integration with Firebase and Google Cloud for backend services.</li>
+  </ul>
+
+  <h2>🚀 Getting Started with Android Studio</h2>
+  <ol>
+    <li>Download Android Studio from the <a href="https://developer.android.com/studio" target="_blank"
+        rel="noopener">official website</a>.</li>
+    <li>Install Android Studio and the Android SDK on your computer.</li>
+    <li>Create a new project or import an existing one.</li>
+    <li>Use the visual layout editor to design your app's user interface.</li>
+    <li>Write your app logic in Java or Kotlin.</li>
+    <li>Run your app using the built-in emulator or connect a physical Android device.</li>
+    <li>Debug and profile your app using the integrated tools.</li>
+    <li>Build APKs or app bundles for publishing to Google Play.</li>
+  </ol>
+
+  <h2>📦 Example: Hello World in Kotlin</h2>
+  <pre><code>package com.example.helloworld
+
+import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
+import android.widget.TextView
+
+class MainActivity : AppCompatActivity() {
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        val textView = TextView(this)
+        textView.text = "Hello, World!"
+        setContentView(textView)
+    }
+}
+</code></pre>
+
+  <h2>📚 Useful Resources</h2>
+  <ul>
+    <li><a href="https://developer.android.com/studio" target="_blank" rel="noopener">Android Studio Official Site</a>
+    </li>
+    <li><a href="https://developer.android.com/jetpack" target="_blank" rel="noopener">Android Jetpack Components</a>
+    </li>
+    <li><a href="https://developer.android.com/kotlin" target="_blank" rel="noopener">Kotlin for Android</a></li>
+    <li><a href="https://developer.android.com/training/basics/firstapp" target="_blank" rel="noopener">Build Your First
+        App</a></li>
+    <li><a href="https://developer.android.com/studio/debug" target="_blank" rel="noopener">Debugging with Android
+        Studio</a></li>
+  </ul>
+
+  <footer>
+    <p>© 2025 DocsToSheets | Powered by Android Studio & Google</p>
+  </footer>
+  <div>
+    <nav>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="https://forms.gle/j2bYyeH9ESD5VXre8">Feedback</a></li>
+      </ul>
+    </nav>
+  </div>
+</body>
+
+</html>

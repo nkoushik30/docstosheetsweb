@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Microsoft Sway - Interactive Presentation Tool</title>
+  <link rel="icon" type="image/png" href="logo.png">
+
+  <style>
+    body {
+      font-family: "Times New Roman", Times, serif;
+      background-color: #f9fef9;
+      color: #333;
+      padding: 20px;
+    }
+
+    h2 {
+      color: #2e7d32;
+      margin-top: 40px;
+      border-bottom: 2px solid #c8e6c9;
+      padding-bottom: 5px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 10px;
+      margin-bottom: 30px;
+      background-color: #fff;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    }
+
+    th,
+    td {
+      padding: 12px 15px;
+      text-align: left;
+      border-bottom: 1px solid #ddd;
+    }
+
+    th {
+      background-color: #a5d6a7;
+      color: #1b5e20;
+    }
+
+    header {
+      height: 350px;
+      background-color: #fffcfc;
+      display: flex;
+      align-items: center;
+      padding: 60 40px;
+      color: green;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);
+      font-weight: bold;
+      font-size: 24px;
+      gap: 10px;
+      z-index: 1000;
+    }
+
+    header .logo-text {
+      font-size: 200px;
+    }
+
+    header .logo-text sup {
+      font-size: 160px;
+      vertical-align: super;
+      color: darkgreen;
+    }
+
+    header .site-address {
+      color: #ffffff;
+      font-size: 160px;
+      user-select: text;
+    }
+
+    tr:hover {
+      background-color: #f1f8e9;
+    }
+
+    h1 {
+      text-align: center;
+    }
+
+    code {
+      background-color: #e8f5e9;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 0.95em;
+    }
+
+    nav ul {
+      list-style-type: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      /* center the items */
+    }
+
+    nav {
+      background-color: #61a988;
+      /* dark green background */
+      padding: 10px 0;
+    }
+
+    nav ul li {
+      margin: 0 20px;
+    }
+
+    nav ul li a {
+      text-decoration: none;
+      color: white;
+      font-size: 18px;
+      padding: 8px 16px;
+      border-radius: 5px;
+      transition: background-color 0.3s ease;
+    }
+
+    nav ul li a:hover {
+      background-color: #86c06b;
+    }
+
+    button {
+      background-color: #1c95ff;
+      color: #1c95ff;
+      border: none;
+      padding: 10px 20px;
+      font-size: 16px;
+      font-weight: bold;
+      border-radius: 8px;
+      transition: background-color 0.3s ease, transform 0.2s ease;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f4f6f9;
+      color: #333;
+      padding: 20px;
+      line-height: 1.6;
+    }
+
+    h2 {
+      color: #2a7f62;
+      font-size: 28px;
+      margin-bottom: 20px;
+    }
+
+    h3 {
+      color: #1f4e79;
+      font-size: 20px;
+      margin-top: 25px;
+      margin-bottom: 10px;
+    }
+
+    p {
+      margin-bottom: 10px;
+    }
+
+    pre {
+      background-color: #eef1f5;
+      padding: 12px;
+      border-left: 5px solid #2a7f62;
+      overflow-x: auto;
+      font-size: 14px;
+      margin-bottom: 20px;
+      border-radius: 5px;
+    }
+
+    code {
+      font-family: 'Courier New', monospace;
+      color: #1e1e1e;
+      display: block;
+    }
+  </style>
+</head>
+
+<body>
+
+
+  <h1>Microsoft Sway</h1>
+  <p>Create Interactive Presentations, Newsletters, and Reports</p>
+  <header class="navbar">
+    <div class="logo-container">
+      <div class="logo-container">
+        <img src="logo.png" alt="Logo" class="logo" />
+      </div>
+    </div>
+  </header>
+
+  <div class="container">
+    <h2>🔍 What is Microsoft Sway?</h2>
+    <p>
+      Microsoft Sway is a cloud-based digital storytelling tool that helps users create interactive presentations,
+      newsletters, reports, resumes, and personal stories. Unlike PowerPoint, Sway focuses more on layout automation and
+      visually engaging designs with ease of sharing and embedding.
+    </p>
+
+    <h2>✨ Key Features of Sway</h2>
+    <ul>
+      <li>Web-based design – no installation required</li>
+      <li>Smart design engine that automatically arranges content beautifully</li>
+      <li>Embed YouTube, Tweets, PDFs, and charts with ease</li>
+      <li>Built-in themes and customizable layouts</li>
+      <li>Responsive design for all screen sizes (mobile, tablet, desktop)</li>
+      <li>Secure sharing via link or embedding in websites</li>
+      <li>Integration with OneDrive, Bing Images, and YouTube</li>
+    </ul>
+
+    <div class="highlight">
+      💡 <strong>Tip:</strong> No need to design slides manually. Just add your content, and Sway handles the formatting
+      automatically!
+    </div>
+
+    <h2>🎓 Real-time Examples</h2>
+
+    <div class="box">
+      <strong>👨‍🎓 For Students:</strong><br />
+      Create interactive portfolios, project reports, resumes, and presentations. For example, a student can build a
+      Sway showcasing their final year project with embedded videos, charts, and demo links.
+    </div>
+
+    <div class="box">
+      <strong>👩‍🏫 For Teachers:</strong><br />
+      Use Sway to send weekly newsletters, create engaging lesson summaries, digital assignments, or syllabus
+      breakdowns. Great for flipping the classroom digitally.
+    </div>
+
+    <div class="box">
+      <strong>💼 For Professionals:</strong><br />
+      Share marketing updates, product overviews, proposals, and status reports with a clean, web-friendly format that
+      impresses clients and teams alike.
+    </div>
+
+    <h2>📌 Add-ons & Integrations</h2>
+    <ul>
+      <li><strong>OneDrive:</strong> Pull documents and images from your cloud directly into Sway</li>
+      <li><strong>Bing Search:</strong> Add royalty-free images, videos, tweets, and charts</li>
+      <li><strong>YouTube Integration:</strong> Embed videos directly for demos and tutorials</li>
+      <li><strong>Microsoft Forms:</strong> Insert quizzes or polls for interactive content</li>
+      <li><strong>Office 365 Integration:</strong> Seamless sharing within your organization or school</li>
+    </ul>
+
+    <div class="highlight">
+      ✅ Example: A school can prepare a <strong>monthly digital newsletter</strong> using Sway, embed it on the school
+      website, and track how many students viewed it.
+    </div>
+
+
+    <footer>
+      📚 Built for learners by learners | Part of <strong>DocsToSheets</strong>
+    </footer>
+    <div>
+      <nav>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="https://forms.gle/j2bYyeH9ESD5VXre8">Feedback</a></li>
+        </ul>
+      </nav>
+    </div>
+</body>
+
+</html>

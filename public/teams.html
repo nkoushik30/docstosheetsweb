@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Excel Tools - Workbook & Worksheet</title>
+  <link rel="icon" type="image/png" href="logo.png">
+
+  <style>
+    body {
+      font-family: "Times New Roman", Times, serif;
+      background-color: #f8f9fa;
+      padding: 20px;
+      color: #333;
+    }
+
+    h2 {
+      color: #2e7d32;
+      font-size: 24px;
+      margin-bottom: 16px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 30px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      background-color: white;
+    }
+
+    th,
+    td {
+      border: 1px solid #ccc;
+      padding: 12px 15px;
+      text-align: left;
+    }
+
+    th {
+      background-color: #2e7d32;
+      color: white;
+    }
+
+    tr:nth-child(even) {
+      background-color: #f1f1f1;
+    }
+
+    tr:hover {
+      background-color: #e0f2f1;
+    }
+
+    code {
+      background: #eee;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 14px;
+    }
+
+    header {
+      height: 350px;
+      background-color: #fffcfc;
+      display: flex;
+      align-items: center;
+      padding: 60 40px;
+      color: green;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);
+      font-weight: bold;
+      font-size: 24px;
+      gap: 10px;
+      z-index: 1000;
+    }
+
+    header .logo-text {
+      font-size: 200px;
+    }
+
+    header .logo-text sup {
+      font-size: 160px;
+      vertical-align: super;
+      color: darkgreen;
+    }
+
+    header .site-address {
+      color: #ffffff;
+      font-size: 160px;
+      user-select: text;
+    }
+
+    tr:hover {
+      background-color: #f1f8e9;
+    }
+
+    h1 {
+      text-align: center;
+    }
+
+    code {
+      background-color: #e8f5e9;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 0.95em;
+    }
+
+    nav ul {
+      list-style-type: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      /* center the items */
+    }
+
+    nav {
+      background-color: #61a988;
+      /* dark green background */
+      padding: 10px 0;
+    }
+
+    nav ul li {
+      margin: 0 20px;
+    }
+
+    nav ul li a {
+      text-decoration: none;
+      color: white;
+      font-size: 18px;
+      padding: 8px 16px;
+      border-radius: 5px;
+      transition: background-color 0.3s ease;
+    }
+
+    nav ul li a:hover {
+      background-color: #86c06b;
+    }
+
+    button {
+      background-color: #1c95ff;
+      color: #1c95ff;
+      border: none;
+      padding: 10px 20px;
+      font-size: 16px;
+      font-weight: bold;
+      border-radius: 8px;
+      transition: background-color 0.3s ease, transform 0.2s ease;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+  </style>
+</head>
+
+<body>
+  <h1>📊 Microsoft Teams Tools/Features – DocsToSheets</h1>
+  <header class="navbar">
+    <div class="logo-container">
+      <div class="logo-container">
+        <img src="logo.png" alt="Logo" class="logo" />
+      </div>
+    </div>
+  </header>
+
+  <h2>Chat & Messaging Shortcuts</h2>
+  <table>
+    <tr>
+      <th>Shortcut</th>
+      <th>Function</th>
+      <th>How to Use</th>
+      <th>Why It's Useful</th>
+    </tr>
+    <tr>
+      <td>Ctrl + N</td>
+      <td>Start a New Chat</td>
+      <td>Begin typing a message to a new person or group</td>
+      <td>Quick access to initiate conversations</td>
+    </tr>
+    <tr>
+      <td>Ctrl + Enter</td>
+      <td>Send Message</td>
+      <td>Press while typing in chat</td>
+      <td>Efficiently sends message without mouse</td>
+    </tr>
+    <tr>
+      <td>Ctrl + Shift + X</td>
+      <td>Expand Compose Box</td>
+      <td>Allows full formatting toolbar in messages</td>
+      <td>Adds rich text like bullet points, links</td>
+    </tr>
+    <tr>
+      <td>Ctrl + Shift + C</td>
+      <td>Mark Message as Important</td>
+      <td>Highlight your message with attention</td>
+      <td>Ensures message stands out in chat</td>
+    </tr>
+    <tr>
+      <td>Ctrl + Shift + L</td>
+      <td>Bullet List</td>
+      <td>Insert bullets while typing a message</td>
+      <td>Improves readability of long messages</td>
+    </tr>
+    <tr>
+      <td>Ctrl + Shift + M</td>
+      <td>Mute/Unmute Microphone</td>
+      <td>Use during a call</td>
+      <td>Toggle audio instantly</td>
+    </tr>
+    <tr>
+      <td>Ctrl + B / I / U</td>
+      <td>Bold / Italic / Underline</td>
+      <td>Use while composing a message</td>
+      <td>Text formatting shortcuts</td>
+    </tr>
+    <tr>
+      <td>Ctrl + A</td>
+      <td>Select All</td>
+      <td>Highlight entire message</td>
+      <td>Useful for copying or deleting everything quickly</td>
+    </tr>
+    <tr>
+      <td>Ctrl + Shift + V</td>
+      <td>Paste Plain Text</td>
+      <td>Paste copied content without formatting</td>
+      <td>Keeps messages clean</td>
+    </tr>
+    <tr>
+      <td>Ctrl + Z / Y</td>
+      <td>Undo / Redo</td>
+      <td>Revert or reapply changes while typing</td>
+      <td>Error correction without mouse</td>
+    </tr>
+
+  </table>
+
+
+  <h2>Workbook & Worksheet Management</h2>
+  <table>
+    <tr>
+      <th>Shortcut</th>
+      <th>Function</th>
+      <th>How to Use</th>
+      <th>Why It's Useful</th>
+    </tr>
+
+    <tr>
+      <td><code>Ctrl + N</code></td>
+      <td>New Workbook</td>
+      <td>Press Ctrl and N together</td>
+      <td>Quickly starts a new blank Excel file</td>
+    </tr>
+
+    <tr>
+      <td><code>Ctrl + O</code></td>
+      <td>Open Workbook</td>
+      <td>Press Ctrl and O together</td>
+      <td>Access recent or saved files instantly</td>
+    </tr>
+
+    <tr>
+      <td><code>Ctrl + S</code></td>
+      <td>Save Workbook</td>
+      <td>Press Ctrl and S anytime</td>
+      <td>Prevents data loss by saving progress</td>
+    </tr>
+
+    <tr>
+      <td><code>Ctrl + Page Up / Page Down</code></td>
+      <td>Switch Worksheets</td>
+      <td>Use Ctrl with Page Up or Page Down</td>
+      <td>Navigates between sheets without mouse</td>
+    </tr>
+
+    <tr>
+      <td>Double-click tab</td>
+      <td>Rename Sheet</td>
+      <td>Double-click the sheet name at the bottom</td>
+      <td>Allows quick renaming for clarity</td>
+    </tr>
+
+    <tr>
+      <td>Right-click → Insert/Delete</td>
+      <td>Insert/Delete Sheet</td>
+      <td>Use the context menu on the sheet tab</td>
+      <td>Manages sheets effectively</td>
+    </tr>
+
+    <tr>
+      <td><code>Ctrl + F4</code></td>
+      <td>Close Workbook</td>
+      <td>Press Ctrl and F4 together</td>
+      <td>Closes current workbook quickly</td>
+    </tr>
+
+    <tr>
+      <td><code>Ctrl + Tab</code></td>
+      <td>Switch Between Workbooks</td>
+      <td>Press Ctrl + Tab keys together</td>
+      <td>Jumps between multiple open files</td>
+    </tr>
+
+    <tr>
+      <td><code>Shift + F11</code></td>
+      <td>Insert New Sheet</td>
+      <td>Use Shift and F11 together</td>
+      <td>Quickly adds a new worksheet</td>
+    </tr>
+
+    <tr>
+      <td><code>Alt + T, P, P</code></td>
+      <td>Protect Sheet</td>
+      <td>Press Alt then T, then P, then P</td>
+      <td>Prevents others from editing content</td>
+    </tr>
+  </table>
+  <h2>Calling Shortcuts</h2>
+  <table>
+    <tr>
+      <th>Shortcut</th>
+      <th>Function</th>
+      <th>How to Use</th>
+      <th>Why It's Useful</th>
+    </tr>
+    <tr>
+      <td>Ctrl + Shift + C</td>
+      <td>Start a Call</td>
+      <td>From chat, press to call the contact</td>
+      <td>Quickly initiate an audio/video call</td>
+    </tr>
+    <tr>
+      <td>Ctrl + Shift + U</td>
+      <td>Hang Up Call</td>
+      <td>Ends current call</td>
+      <td>Convenient call termination</td>
+    </tr>
+    <tr>
+      <td>Ctrl + Shift + M</td>
+      <td>Mute/Unmute Microphone</td>
+      <td>Toggles mic during a call</td>
+      <td>Privacy control in calls</td>
+    </tr>
+    <tr>
+      <td>Ctrl + Shift + O</td>
+      <td>Turn Camera On/Off</td>
+      <td>Toggles video stream</td>
+      <td>Quick video privacy management</td>
+    </tr>
+    <tr>
+      <td>Ctrl + Shift + K</td>
+      <td>Start Screen Sharing</td>
+      <td>Initiate share during call</td>
+      <td>Fast content presentation</td>
+    </tr>
+    <tr>
+      <td>Ctrl + Shift + P</td>
+      <td>Toggle Background Effects</td>
+      <td>Change virtual background in calls</td>
+      <td>Maintains privacy or branding</td>
+    </tr>
+    <tr>
+      <td>Ctrl + Spacebar</td>
+      <td>Push to Talk</td>
+      <td>Hold to speak when muted</td>
+      <td>Enables quick voice access</td>
+    </tr>
+    <tr>
+      <td>Alt + Shift + A</td>
+      <td>Accept Incoming Call</td>
+      <td>Answer call without mouse</td>
+      <td>Saves time during multitasking</td>
+    </tr>
+    <tr>
+      <td>Alt + Shift + D</td>
+      <td>Decline Incoming Call</td>
+      <td>Reject call quickly</td>
+      <td>Minimizes disruptions</td>
+    </tr>
+    <tr>
+      <td>Alt + Shift + H</td>
+      <td>Hold Call</td>
+      <td>Put caller on hold</td>
+      <td>Manage active calls efficiently</td>
+    </tr>
+
+  </table>
+  <h2> Meeting Controls</h2>
+  <table>
+    <tr>
+      <th>Shortcut</th>
+      <th>Function</th>
+      <th>How to Use</th>
+      <th>Why It's Useful</th>
+    </tr>
+    <tr>
+      <td>Ctrl + Shift + M</td>
+      <td>Mute/Unmute Mic</td>
+      <td>During meetings</td>
+      <td>Quickly manage audio</td>
+    </tr>
+    <tr>
+      <td>Ctrl + Shift + O</td>
+      <td>Toggle Camera</td>
+      <td>Start/stop camera feed</td>
+      <td>Video privacy control</td>
+    </tr>
+    <tr>
+      <td>Ctrl + Shift + Space</td>
+      <td>Raise/Lower Hand</td>
+      <td>Signal to speak</td>
+      <td>Respectful meeting participation</td>
+    </tr>
+    <tr>
+      <td>Ctrl + N</td>
+      <td>New Meeting</td>
+      <td>Schedule or start a new meeting</td>
+      <td>Instant meeting access</td>
+    </tr>
+    <tr>
+      <td>Ctrl + 8</td>
+      <td>Go to Calendar</td>
+      <td>See upcoming meetings</td>
+      <td>Track meeting schedule</td>
+    </tr>
+    <tr>
+      <td>Ctrl + Shift + K</td>
+      <td>Share Screen</td>
+      <td>Start screen share</td>
+      <td>Collaborate visually</td>
+    </tr>
+    <tr>
+      <td>Ctrl + 1</td>
+      <td>Return to Activity Feed</td>
+      <td>Navigate from meeting view</td>
+      <td>Switch back to notifications</td>
+    </tr>
+    <tr>
+      <td>Ctrl + Shift + H</td>
+      <td>Hide/Show Meeting Controls</td>
+      <td>Toggle UI bar</td>
+      <td>Unclutter the screen</td>
+    </tr>
+    <tr>
+      <td>Ctrl + Shift + A</td>
+      <td>Accept Meeting</td>
+      <td>Confirms meeting invite</td>
+      <td>Saves time with keyboard</td>
+    </tr>
+    <tr>
+      <td>Ctrl + Shift + D</td>
+      <td>Decline Meeting</td>
+      <td>Reject meeting invite</td>
+      <td>Manage calendar quickly</td>
+    </tr>
+
+  </table>
+  <h2> File Navigation & Collaboration</h2>
+  <table>
+    <tr>
+      <th>Shortcut</th>
+      <th>Function</th>
+      <th>How to Use</th>
+      <th>Why It's Useful</th>
+    </tr>
+    <tr>
+      <td>Ctrl + 6</td>
+      <td>Go to Files Tab</td>
+      <td>Navigate using number keys</td>
+      <td>Access shared files fast</td>
+    </tr>
+    <tr>
+      <td>Ctrl + Shift + F</td>
+      <td>Search in Files</td>
+      <td>Find documents</td>
+      <td>Quick document lookup</td>
+    </tr>
+    <tr>
+      <td>Ctrl + C / V</td>
+      <td>Copy / Paste File Links</td>
+      <td>Within Teams file chats</td>
+      <td>Share files instantly</td>
+    </tr>
+    <tr>
+      <td>Tab Key</td>
+      <td>Navigate Tabs in File View</td>
+      <td>Press repeatedly</td>
+      <td>Keyboard-based browsing</td>
+    </tr>
+    <tr>
+      <td>Ctrl + O</td>
+      <td>Open File</td>
+      <td>While focused on file list</td>
+      <td>Opens selected file quickly</td>
+    </tr>
+    <tr>
+      <td>Delete</td>
+      <td>Remove Selected File</td>
+      <td>Focus on file and press Delete</td>
+      <td>Clear unwanted files</td>
+    </tr>
+    <tr>
+      <td>Ctrl + Shift + S</td>
+      <td>Share File</td>
+      <td>From Teams or Chat</td>
+      <td>Collaborate instantly</td>
+    </tr>
+    <tr>
+      <td>Enter</td>
+      <td>Preview File</td>
+      <td>Click once and hit Enter</td>
+      <td>Open file viewer without leaving tab</td>
+    </tr>
+    <tr>
+      <td>Alt + Shift + E</td>
+      <td>Download File</td>
+      <td>From files tab</td>
+      <td>Save file locally</td>
+    </tr>
+    <tr>
+      <td>Ctrl + Shift + U</td>
+      <td>Upload File</td>
+      <td>From local system</td>
+      <td>Add new file to Team or Chat</td>
+    </tr>
+
+  </table>
+  <h2>Activity & Navigation</h2>
+  <table>
+    <tr>
+      <th>Shortcut</th>
+      <th>Function</th>
+      <th>How to Use</th>
+      <th>Why It's Useful</th>
+    </tr>
+    <tr>
+      <td>Ctrl + 1</td>
+      <td>Go to Activity Feed</td>
+      <td>Shortcut to first navigation tab</td>
+      <td>Check notifications fast</td>
+    </tr>
+    <tr>
+      <td>Ctrl + 2</td>
+      <td>Go to Chat</td>
+      <td>Direct access to messages</td>
+      <td>Save time switching tabs</td>
+    </tr>
+    <tr>
+      <td>Ctrl + 3</td>
+      <td>Go to Teams</td>
+      <td>Focus on your team channels</td>
+      <td>Faster channel management</td>
+    </tr>
+    <tr>
+      <td>Ctrl + 4</td>
+      <td>Go to Calendar</td>
+      <td>Open meeting scheduler</td>
+      <td>Manage meetings efficiently</td>
+    </tr>
+    <tr>
+      <td>Ctrl + /</td>
+      <td>Show All Shortcuts</td>
+      <td>Opens a full list inside Teams</td>
+      <td>Learn and explore more shortcuts</td>
+    </tr>
+    <tr>
+      <td>Ctrl + .</td>
+      <td>Switch Theme</td>
+      <td>Light / Dark toggle</td>
+      <td>Adjusts interface quickly</td>
+    </tr>
+    <tr>
+      <td>Ctrl + Shift + E</td>
+      <td>Expand Left Navigation</td>
+      <td>Show more navigation tabs</td>
+      <td>Useful on smaller screens</td>
+    </tr>
+    <tr>
+      <td>Ctrl + Shift + N</td>
+      <td>Start New Team</td>
+      <td>Create a new team from scratch</td>
+      <td>Team organization made easy</td>
+    </tr>
+    <tr>
+      <td>Ctrl + T</td>
+      <td>Jump to Search</td>
+      <td>Focus search box at top</td>
+      <td>Find anything in Teams</td>
+    </tr>
+    <tr>
+      <td>Esc</td>
+      <td>Close Current Pane</td>
+      <td>Closes modals or dialogs</td>
+      <td>Exit sections without mouse</td>
+    </tr>
+
+  </table>
+  <div>
+    <nav>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="https://forms.gle/j2bYyeH9ESD5VXre8">Feedback</a></li>
+      </ul>
+    </nav>
+  </div>
+</body>
+
+</html>

@@ -1,0 +1,866 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DocsToSheets - Microsoft & Google Tools</title>
+  <link rel="icon" type="image/png" href="logo.png">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Lora:wght@400;600;700&family=DM+Sans:wght@300;400;500;600&display=swap"
+    rel="stylesheet">
+  <style>
+    :root {
+      --bg: #f5f2ec;
+      --bg2: #edeae3;
+      --card: #ffffff;
+      --text: #1c1a16;
+      --muted: #6b6760;
+      --accent-ms: #0057b8;
+      --accent-ms-soft: #e8f0fb;
+      --accent-g: #1a7f4b;
+      --accent-g-soft: #e6f5ee;
+      --border: #ddd9d1;
+      --header-bg: #1c1a16;
+      --shadow: 0 2px 12px rgba(0, 0, 0, 0.07);
+      --shadow-hover: 0 8px 28px rgba(0, 0, 0, 0.13);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+    }
+
+    /* HEADER */
+    header {
+      background: var(--header-bg);
+      height: 68px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 36px;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      box-shadow: 0 1px 0 rgba(255, 255, 255, 0.06);
+    }
+
+    .logo-area {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+    }
+
+    .logo-area img {
+      width: 38px;
+      height: 38px;
+      border-radius: 8px;
+      object-fit: contain;
+    }
+
+    .logo-name {
+      font-family: 'Lora', serif;
+      font-size: 20px;
+      font-weight: 700;
+      color: #f5f2ec;
+      letter-spacing: -0.3px;
+    }
+
+    .logo-name span {
+      color: #5bdc8e;
+    }
+
+    .header-right {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .btn-nav {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 14px;
+      font-weight: 500;
+      padding: 8px 18px;
+      border-radius: 8px;
+      border: none;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.2s ease;
+      display: inline-block;
+    }
+
+    .btn-signin {
+      background: transparent;
+      color: #c8c4bc;
+      border: 1px solid #3a3830;
+    }
+
+    .btn-signin:hover {
+      background: #2a2820;
+      color: #f5f2ec;
+    }
+
+    .btn-signup {
+      background: #5bdc8e;
+      color: #0e2e1c;
+      font-weight: 600;
+    }
+
+    .btn-signup:hover {
+      background: #4ecb7d;
+    }
+
+    .btn-profile {
+      background: #2d2b26;
+      color: #c8c4bc;
+      border: 1px solid #3a3830;
+    }
+
+    .btn-profile:hover {
+      background: #3a3830;
+      color: #f5f2ec;
+    }
+
+    /* LAYOUT */
+    .page-wrapper {
+      display: flex;
+      min-height: calc(100vh - 68px);
+    }
+
+    /* SIDEBAR */
+    aside {
+      width: 220px;
+      flex-shrink: 0;
+      background: var(--card);
+      border-right: 1px solid var(--border);
+      padding: 28px 16px;
+      position: sticky;
+      top: 68px;
+      height: calc(100vh - 68px);
+      overflow-y: auto;
+    }
+
+    .sidebar-section {
+      margin-bottom: 28px;
+    }
+
+    .sidebar-label {
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 1.2px;
+      text-transform: uppercase;
+      color: var(--muted);
+      padding: 0 8px;
+      margin-bottom: 8px;
+    }
+
+    .sidebar-nav-item {
+      display: block;
+      padding: 9px 12px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--text);
+      transition: all 0.15s ease;
+      margin-bottom: 2px;
+    }
+
+    .sidebar-nav-item:hover {
+      background: var(--bg2);
+      color: var(--accent-ms);
+    }
+
+    .sidebar-nav-item.google:hover {
+      color: var(--accent-g);
+    }
+
+    .sidebar-nav-item .icon {
+      margin-right: 8px;
+      font-size: 15px;
+    }
+
+    /* MAIN */
+    main {
+      flex: 1;
+      padding: 40px 48px;
+      max-width: 900px;
+    }
+
+    /* HERO */
+    .hero-strip {
+      background: linear-gradient(135deg, #1c1a16 0%, #2e3b4e 100%);
+      border-radius: 16px;
+      padding: 36px 40px;
+      margin-bottom: 48px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-strip::before {
+      content: '';
+      position: absolute;
+      top: -40px;
+      right: -40px;
+      width: 220px;
+      height: 220px;
+      background: radial-gradient(circle, rgba(91, 220, 142, 0.15) 0%, transparent 70%);
+      border-radius: 50%;
+    }
+
+    .hero-strip h1 {
+      font-family: 'Lora', serif;
+      font-size: 26px;
+      font-weight: 700;
+      color: #f5f2ec;
+      margin-bottom: 8px;
+      position: relative;
+    }
+
+    .hero-strip p {
+      font-size: 15px;
+      color: #a09d96;
+      max-width: 540px;
+      line-height: 1.6;
+      position: relative;
+    }
+
+    .hero-strip p strong {
+      color: #5bdc8e;
+    }
+
+    /* SECTION HEADERS */
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 24px;
+      margin-top: 44px;
+    }
+
+    .section-badge {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      padding: 4px 12px;
+      border-radius: 20px;
+    }
+
+    .badge-ms {
+      background: var(--accent-ms-soft);
+      color: var(--accent-ms);
+    }
+
+    .badge-g {
+      background: var(--accent-g-soft);
+      color: var(--accent-g);
+    }
+
+    .section-header h2 {
+      font-family: 'Lora', serif;
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    .section-divider {
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+
+    /* TOOL CARDS */
+    .tool-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 24px 28px;
+      margin-bottom: 20px;
+      transition: all 0.2s ease;
+      box-shadow: var(--shadow);
+    }
+
+    .tool-card:hover {
+      box-shadow: var(--shadow-hover);
+      transform: translateY(-2px);
+    }
+
+    .tool-card-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+
+    .tool-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      flex-shrink: 0;
+    }
+
+    .tool-icon.ms {
+      background: var(--accent-ms-soft);
+    }
+
+    .tool-icon.g {
+      background: var(--accent-g-soft);
+    }
+
+    .tool-card h3 {
+      font-family: 'Lora', serif;
+      font-size: 18px;
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    .tool-card ul {
+      list-style: none;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px 16px;
+    }
+
+    .tool-card ul li {
+      font-size: 13.5px;
+      color: var(--muted);
+      padding: 6px 10px;
+      background: var(--bg);
+      border-radius: 6px;
+      line-height: 1.5;
+    }
+
+    .tool-card ul li strong {
+      color: var(--text);
+      font-weight: 600;
+    }
+
+    .tool-card ul li code {
+      font-family: 'Courier New', monospace;
+      font-size: 12px;
+      background: #ebe7df;
+      padding: 1px 5px;
+      border-radius: 4px;
+      color: #333;
+    }
+
+    /* ABOUT */
+    .about-box {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 36px 40px;
+      margin-top: 48px;
+      margin-bottom: 32px;
+    }
+
+    .about-box h2 {
+      font-family: 'Lora', serif;
+      font-size: 22px;
+      font-weight: 700;
+      margin-bottom: 16px;
+    }
+
+    .about-box p,
+    .about-box li {
+      font-size: 15px;
+      line-height: 1.75;
+      color: var(--muted);
+      margin-bottom: 12px;
+    }
+
+    .about-box ul {
+      margin-left: 20px;
+      margin-top: 8px;
+    }
+
+    .about-box strong {
+      color: var(--text);
+    }
+
+    /* MODAL */
+    #signin-recommendation {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(28, 26, 22, 0.6);
+      backdrop-filter: blur(4px);
+      z-index: 9999;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .signin-popup {
+      background: var(--card);
+      border-radius: 18px;
+      padding: 40px 36px;
+      max-width: 380px;
+      width: 90%;
+      text-align: center;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+    }
+
+    .signin-popup .popup-emoji {
+      font-size: 40px;
+      margin-bottom: 12px;
+    }
+
+    .signin-popup h3 {
+      font-family: 'Lora', serif;
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 10px;
+    }
+
+    .signin-popup p {
+      font-size: 14px;
+      color: var(--muted);
+      line-height: 1.6;
+      margin-bottom: 24px;
+    }
+
+    .modal-buttons {
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+    }
+
+    .modal-buttons a {
+      padding: 10px 24px;
+      border-radius: 9px;
+      font-size: 14px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.2s;
+    }
+
+    .modal-buttons a:first-child {
+      background: var(--accent-ms);
+      color: white;
+    }
+
+    .modal-buttons a:first-child:hover {
+      background: #004a9e;
+    }
+
+    .modal-buttons a:last-child {
+      background: var(--accent-g-soft);
+      color: var(--accent-g);
+      border: 1px solid #b6dfc8;
+    }
+
+    .modal-buttons a:last-child:hover {
+      background: #d2f0e0;
+    }
+
+    ::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: #d0ccc4;
+      border-radius: 4px;
+    }
+
+    @media (max-width: 768px) {
+      aside {
+        display: none;
+      }
+
+      main {
+        padding: 24px 20px;
+      }
+
+      .tool-card ul {
+        grid-template-columns: 1fr;
+      }
+
+      header {
+        padding: 0 20px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <a class="logo-area" href="#">
+      <img src="logo.png" alt="Logo" />
+      <span class="logo-name">Docs<span>To</span>Sheets</span>
+    </a>
+    <div class="header-right" id="header-right">
+      <!-- Populated by Firebase auth -->
+    </div>
+  </header>
+
+  <!-- MODAL -->
+  <div id="signin-recommendation">
+    <div class="signin-popup">
+      <div class="popup-emoji">👋</div>
+      <h3>Welcome to DocsToSheets</h3>
+      <p>Sign in or create a free account to unlock all features and save your progress.</p>
+      <div class="modal-buttons">
+        <a href="signin.html">Sign In</a>
+        <a href="signup.html">Sign Up</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-wrapper">
+
+    <!-- SIDEBAR -->
+    <aside>
+      <div class="sidebar-section">
+        <div class="sidebar-label">Microsoft</div>
+        <a class="sidebar-nav-item" href="word.html"><span class="icon">📝</span>Word</a>
+        <a class="sidebar-nav-item" href="excel.html"><span class="icon">📊</span>Excel</a>
+        <a class="sidebar-nav-item" href="teams.html"><span class="icon">💬</span>Teams</a>
+        <a class="sidebar-nav-item" href="visual_studio.html"><span class="icon">💻</span>Visual Studio</a>
+        <a class="sidebar-nav-item" href="powerBI.html"><span class="icon">📈</span>Power BI</a>
+        <a class="sidebar-nav-item" href="onenote.html"><span class="icon">🗒️</span>OneNote</a>
+        <a class="sidebar-nav-item" href="sway.html"><span class="icon">🎨</span>Sway</a>
+      </div>
+      <div class="sidebar-section">
+        <div class="sidebar-label">Google</div>
+        <a class="sidebar-nav-item google" href="firebase.html"><span class="icon">🔥</span>Firebase</a>
+        <a class="sidebar-nav-item google" href="devtools.html"><span class="icon">🛠️</span>Chrome DevTools</a>
+        <a class="sidebar-nav-item google" href="studio.html"><span class="icon">📱</span>Android Studio</a>
+        <a class="sidebar-nav-item google" href="colab.html"><span class="icon">🧪</span>Google Colab</a>
+        <a class="sidebar-nav-item google" href="forms.html"><span class="icon">📋</span>Google Forms</a>
+      </div>
+    </aside>
+
+    <main>
+      <!-- Hero -->
+      <div class="hero-strip">
+        <h1>Microsoft &amp; Google Tools — All in One Place</h1>
+        <p>Your friendly guide to the tools you use every day. From <strong>Word shortcuts</strong> to <strong>Firebase
+            functions</strong>, DocsToSheets makes tech approachable for everyone.</p>
+      </div>
+
+      <!-- MICROSOFT -->
+      <div class="section-header">
+        <span class="section-badge badge-ms">Microsoft</span>
+        <h2>Microsoft Tools</h2>
+        <div class="section-divider"></div>
+      </div>
+
+      <div class="tool-card">
+        <div class="tool-card-header">
+          <div class="tool-icon ms">📝</div>
+          <h3>Microsoft Word — Key Tools &amp; Features</h3>
+        </div>
+        <ul>
+          <li><strong>Home Tab:</strong> Font styling, Paragraph alignment, Bullets &amp; Numbering</li>
+          <li><strong>Insert Tab:</strong> Images, tables, links, headers, footers</li>
+          <li><strong>Design Tab:</strong> Themes, Document formatting, Watermarks</li>
+          <li><strong>Layout Tab:</strong> Page margins, orientation, spacing</li>
+          <li><strong>References Tab:</strong> Table of contents, citations, bibliography</li>
+          <li><strong>Review Tab:</strong> Spelling &amp; grammar, comments, track changes</li>
+          <li><strong>View Tab:</strong> Read mode, print layout, zoom controls</li>
+        </ul>
+      </div>
+
+      <div class="tool-card">
+        <div class="tool-card-header">
+          <div class="tool-icon ms">📊</div>
+          <h3>Microsoft Excel — Key Tools &amp; Features</h3>
+        </div>
+        <ul>
+          <li><strong>Home Tab:</strong> Clipboard, Font, Alignment, Number, Conditional formatting</li>
+          <li><strong>Insert Tab:</strong> Tables, PivotTables, Charts, Sparklines, Filters</li>
+          <li><strong>Page Layout:</strong> Themes, Page setup, Scale to fit, Sheet options</li>
+          <li><strong>Formulas Tab:</strong> Function Library, Defined Names, Formula Auditing</li>
+          <li><strong>Data Tab:</strong> Sort &amp; Filter, Validation, Remove duplicates, Forecast</li>
+          <li><strong>Review Tab:</strong> Spelling, Accessibility, Comments, Protect Sheet</li>
+          <li><strong>View Tab:</strong> Workbook Views, Zoom, Window arrangement, Macros</li>
+        </ul>
+      </div>
+
+      <div class="tool-card">
+        <div class="tool-card-header">
+          <div class="tool-icon ms">💬</div>
+          <h3>Microsoft Teams — Key Tools &amp; Features</h3>
+        </div>
+        <ul>
+          <li><strong>Chat Tab:</strong> Instant messaging, file sharing, emoji, GIFs</li>
+          <li><strong>Teams Tab:</strong> Create/join teams, collaborate on channels</li>
+          <li><strong>Calendar Tab:</strong> Schedule meetings, join video calls</li>
+          <li><strong>Calls Tab:</strong> Voice/video calls, voicemail, contacts</li>
+          <li><strong>Files Tab:</strong> Recent docs, shared files, OneDrive access</li>
+          <li><strong>Apps Tab:</strong> Integrate Planner, Forms, Power BI</li>
+          <li><strong>Activity Tab:</strong> Mentions, replies, missed calls</li>
+          <li><strong>Search Bar:</strong> Find messages, files, and commands</li>
+          <li><code>/call</code> <code>/files</code> <code>/goto</code> — Command shortcuts</li>
+          <li><strong>Settings:</strong> Notifications, themes, privacy options</li>
+        </ul>
+      </div>
+
+      <div class="tool-card">
+        <div class="tool-card-header">
+          <div class="tool-icon ms">💻</div>
+          <h3>Visual Studio Code — Key Shortcuts</h3>
+        </div>
+        <ul>
+          <li><code>Ctrl+P</code> — Quick open files by name</li>
+          <li><code>Ctrl+Shift+P</code> — Open Command Palette</li>
+          <li><code>Ctrl+`</code> — Toggle integrated terminal</li>
+          <li><code>Ctrl+B</code> — Toggle sidebar visibility</li>
+          <li><code>Ctrl+Shift+E</code> — Show Explorer</li>
+          <li><code>Ctrl+Shift+F</code> — Find in files</li>
+          <li><code>Ctrl+/</code> — Toggle line comment</li>
+          <li><code>Alt+Up/Down</code> — Move line up/down</li>
+          <li><code>Ctrl+Space</code> — Trigger IntelliSense</li>
+          <li><code>F12</code> — Go to definition</li>
+          <li><code>Shift+Alt+F</code> — Format document</li>
+          <li><code>Ctrl+Shift+M</code> — Show Problems panel</li>
+        </ul>
+      </div>
+
+      <div class="tool-card">
+        <div class="tool-card-header">
+          <div class="tool-icon ms">📈</div>
+          <h3>Microsoft Power BI — Key Shortcuts</h3>
+        </div>
+        <ul>
+          <li><code>Ctrl+N</code> — Create a new report</li>
+          <li><code>Ctrl+O</code> — Open an existing report</li>
+          <li><code>Ctrl+S</code> — Save current report</li>
+          <li><code>Ctrl+Z</code> — Undo last action</li>
+          <li><code>Ctrl+Y</code> — Redo last action</li>
+          <li><code>Ctrl+C/V</code> — Copy and paste visuals</li>
+          <li><code>Ctrl+G</code> — Group selected visuals</li>
+          <li><code>Ctrl+Shift+G</code> — Ungroup visuals</li>
+          <li><code>Ctrl+D</code> — Duplicate selected visual</li>
+          <li><code>Ctrl+Arrows</code> — Nudge visuals on canvas</li>
+        </ul>
+      </div>
+
+      <div class="tool-card">
+        <div class="tool-card-header">
+          <div class="tool-icon ms">🗒️</div>
+          <h3>Microsoft OneNote — Digital Notebook</h3>
+        </div>
+        <ul>
+          <li><strong>Notebooks/Sections/Pages:</strong> Organize hierarchically</li>
+          <li><strong>Ink &amp; Drawing:</strong> Write or sketch with stylus/touch</li>
+          <li><strong>Audio &amp; Video Notes:</strong> Record ideas directly</li>
+          <li><strong>Web Clipper:</strong> Save articles from the web</li>
+          <li><strong>Tagging:</strong> To-Do, Important, Question tags</li>
+          <li><strong>Search:</strong> Find notes by keyword or tag</li>
+          <li><strong>Collaboration:</strong> Share and co-edit in real-time</li>
+          <li><strong>Integration:</strong> Works with Outlook, Teams, Word</li>
+        </ul>
+      </div>
+
+      <!-- GOOGLE -->
+      <div class="section-header">
+        <span class="section-badge badge-g">Google</span>
+        <h2>Google Tools</h2>
+        <div class="section-divider"></div>
+      </div>
+
+      <div class="tool-card">
+        <div class="tool-card-header">
+          <div class="tool-icon g">🔥</div>
+          <h3>Google Firebase — Key Tools &amp; Features</h3>
+        </div>
+        <ul>
+          <li><code>Realtime Database</code> — Sync data in real-time across clients</li>
+          <li><code>Authentication</code> — Sign-in with email, Google, Facebook</li>
+          <li><code>Cloud Firestore</code> — NoSQL document database</li>
+          <li><code>Cloud Functions</code> — Run backend code on events</li>
+          <li><code>Hosting</code> — Fast static website hosting with SSL</li>
+          <li><code>Analytics</code> — User behavior &amp; app performance</li>
+          <li><code>Crashlytics</code> — Real-time crash reporting</li>
+          <li><code>Cloud Messaging</code> — Push notifications &amp; messages</li>
+          <li><code>Remote Config</code> — Dynamically change app behavior</li>
+          <li><code>Test Lab</code> — Automated testing on real devices</li>
+        </ul>
+      </div>
+
+      <div class="tool-card">
+        <div class="tool-card-header">
+          <div class="tool-icon g">🛠️</div>
+          <h3>Chrome DevTools — Key Tools &amp; Features</h3>
+        </div>
+        <ul>
+          <li><code>Elements Panel</code> — Inspect and edit HTML/CSS live</li>
+          <li><code>Console</code> — Run JavaScript and view logs</li>
+          <li><code>Network Panel</code> — Monitor network requests</li>
+          <li><code>Performance Panel</code> — Analyze runtime &amp; page speed</li>
+          <li><code>Sources Panel</code> — Debug JS with breakpoints</li>
+          <li><code>Application Panel</code> — Storage, cookies, cache, service workers</li>
+          <li><code>Security Panel</code> — Check HTTPS and security issues</li>
+          <li><code>Lighthouse</code> — Performance &amp; accessibility audits</li>
+          <li><code>Memory Panel</code> — Track memory leaks and usage</li>
+          <li><code>Device Mode</code> — Simulate mobile screens</li>
+        </ul>
+      </div>
+
+      <div class="tool-card">
+        <div class="tool-card-header">
+          <div class="tool-icon g">📱</div>
+          <h3>Android Studio — Key Tools &amp; Features</h3>
+        </div>
+        <ul>
+          <li><code>Code Editor</code> — Syntax highlighting, code completion</li>
+          <li><code>Layout Editor</code> — Drag-and-drop interface builder</li>
+          <li><code>Emulator</code> — Simulate Android devices</li>
+          <li><code>Gradle Build</code> — Automate builds &amp; dependencies</li>
+          <li><code>Profiler</code> — Analyze CPU, memory, network</li>
+          <li><code>Debugger</code> — Step through code, inspect variables</li>
+          <li><code>Version Control</code> — Built-in Git, SVN support</li>
+          <li><code>APK Analyzer</code> — Inspect APK contents and size</li>
+          <li><code>Instant Run</code> — Deploy changes without rebuilding</li>
+          <li><code>Testing Tools</code> — Unit and UI testing frameworks</li>
+        </ul>
+      </div>
+
+      <div class="tool-card">
+        <div class="tool-card-header">
+          <div class="tool-icon g">🧪</div>
+          <h3>Google Colab — Key Tools &amp; Features</h3>
+        </div>
+        <ul>
+          <li><code>Jupyter Interface</code> — Interactive Python environment</li>
+          <li><code>GPU/TPU Support</code> — Free hardware accelerators for ML</li>
+          <li><code>Collaboration</code> — Real-time notebook sharing</li>
+          <li><code>Pre-installed Libs</code> — TensorFlow, PyTorch, NumPy</li>
+          <li><code>Drive Integration</code> — Load/save files from Google Drive</li>
+          <li><code>Markdown Support</code> — Rich text formatting in notebooks</li>
+          <li><code>Forms &amp; Widgets</code> — Add interactive UI elements</li>
+          <li><code>Code Snippets</code> — Quick-insert common code blocks</li>
+          <li><code>Version Control</code> — Git integration</li>
+          <li><code>Export Options</code> — Export as .ipynb or .py</li>
+        </ul>
+      </div>
+
+      <div class="tool-card">
+        <div class="tool-card-header">
+          <div class="tool-icon g">📋</div>
+          <h3>Google Forms — Key Tools &amp; Features</h3>
+        </div>
+        <ul>
+          <li><code>Form Creation</code> — Easy drag-and-drop builder</li>
+          <li><code>Question Types</code> — Multiple choice, text, dropdowns, scales</li>
+          <li><code>Custom Themes</code> — Colors, fonts, and images</li>
+          <li><code>Response Collection</code> — Summary or individual views</li>
+          <li><code>Sheets Integration</code> — Export responses for analysis</li>
+          <li><code>Collaboration</code> — Share forms for co-editing</li>
+          <li><code>Quizzes</code> — Graded quizzes with auto-scoring</li>
+          <li><code>Logic Branching</code> — Conditional questions</li>
+          <li><code>Email Notifications</code> — Alerts for new responses</li>
+          <li><code>File Upload</code> — Allow respondents to upload files</li>
+        </ul>
+      </div>
+
+      <!-- ABOUT -->
+      <div class="about-box">
+        <h2>About DocsToSheets</h2>
+        <p><strong>DocsToSheets</strong> is an educational platform designed to help beginners and students easily learn
+          the basic tools of <strong>Microsoft Word, Excel</strong>, and popular <strong>Google services</strong>.
+          Whether you're preparing documents, managing data, or building apps, DocsToSheets breaks each feature into
+          simple, approachable guides.</p>
+        <p>We know that many users struggle with formatting documents, writing formulas, or navigating developer tools.
+          That's why we've built a friendly, no-jargon space with:</p>
+        <ul>
+          <li>Easy-to-remember <strong>keyboard shortcuts</strong></li>
+          <li>Clear explanations of <strong>Word, Excel, and Teams tools</strong></li>
+          <li>Practical guides for <strong>Firebase, DevTools, Android Studio, and more</strong></li>
+          <li>Simplified layouts for fast, confident learning</li>
+        </ul>
+        <p>Whether you're a school student, college learner, or a professional building new skills —
+          <strong>DocsToSheets</strong> gives you the foundation to work confidently with both Microsoft and Google
+          tools.</p>
+      </div>
+    </main>
+  </div>
+
+  <script src="js/firebase-config.js"></script>
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.10/firebase-app.js";
+    import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/9.6.10/firebase-auth.js";
+    import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/9.6.10/firebase-firestore.js";
+
+    const app = initializeApp(window.docsToSheetsFirebaseConfig);
+    const auth = getAuth(app);
+    const db = getFirestore(app);
+
+    const headerRight = document.getElementById("header-right");
+    const modal = document.getElementById("signin-recommendation");
+
+    onAuthStateChanged(auth, async (user) => {
+      if (!user) {
+        // Not logged in — show modal + sign in/up buttons
+        modal.style.display = "flex";
+        headerRight.replaceChildren();
+        const signInLink = document.createElement("a");
+        signInLink.href = "signin.html";
+        signInLink.className = "btn-nav btn-signin";
+        signInLink.textContent = "Sign In";
+        const signUpLink = document.createElement("a");
+        signUpLink.href = "signup.html";
+        signUpLink.className = "btn-nav btn-signup";
+        signUpLink.textContent = "Sign Up";
+        headerRight.append(signInLink, signUpLink);
+      } else {
+        // Logged in — hide modal, show profile name + sign out
+        modal.style.display = "none";
+
+        let displayName = "User";
+        try {
+          const userDoc = await getDoc(doc(db, "users", user.uid));
+          if (userDoc.exists()) {
+            const data = userDoc.data();
+            displayName = data.firstName || data.name || user.displayName || "User";
+          }
+        } catch (e) { console.error("Unable to load profile:", e); }
+
+        headerRight.replaceChildren();
+        const profileLink = document.createElement("a");
+        profileLink.href = "userDetails.html";
+        profileLink.className = "btn-nav btn-profile";
+        profileLink.textContent = `👤 ${displayName}`;
+        const logoutButton = document.createElement("button");
+        logoutButton.className = "btn-nav btn-signup";
+        logoutButton.id = "logout-btn";
+        logoutButton.type = "button";
+        logoutButton.textContent = "Sign Out";
+        headerRight.append(profileLink, logoutButton);
+
+        logoutButton.addEventListener("click", async () => {
+          await signOut(auth);
+          window.location.reload();
+        });
+      }
+    });
+
+    // Close modal on backdrop click
+    modal.addEventListener("click", (e) => {
+      if (e.target === modal) modal.style.display = "none";
+    });
+  </script>
+</body>
+
+</html>

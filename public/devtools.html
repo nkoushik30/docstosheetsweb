@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Google Chrome Developer Tools - DocsToSheets</title>
+  <link rel="icon" type="image/png" href="logo.png">
+
+  <style>
+    body {
+      font-family: "Times New Roman", Times, serif;
+      background-color: #f9fef9;
+      color: #333;
+      padding: 20px;
+    }
+
+    h2 {
+      color: #2e7d32;
+      margin-top: 40px;
+      border-bottom: 2px solid #c8e6c9;
+      padding-bottom: 5px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 10px;
+      margin-bottom: 30px;
+      background-color: #fff;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    }
+
+    th,
+    td {
+      padding: 12px 15px;
+      text-align: left;
+      border-bottom: 1px solid #ddd;
+    }
+
+    th {
+      background-color: #a5d6a7;
+      color: #1b5e20;
+    }
+
+    header {
+      height: 350px;
+      background-color: #fffcfc;
+      display: flex;
+      align-items: center;
+      padding: 60 40px;
+      color: green;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);
+      font-weight: bold;
+      font-size: 24px;
+      gap: 10px;
+      z-index: 1000;
+    }
+
+    header .logo-text {
+      font-size: 200px;
+    }
+
+    header .logo-text sup {
+      font-size: 160px;
+      vertical-align: super;
+      color: darkgreen;
+    }
+
+    header .site-address {
+      color: #ffffff;
+      font-size: 160px;
+      user-select: text;
+    }
+
+    tr:hover {
+      background-color: #f1f8e9;
+    }
+
+    h1 {
+      text-align: center;
+    }
+
+    code {
+      background-color: #e8f5e9;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 0.95em;
+    }
+
+    nav ul {
+      list-style-type: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      /* center the items */
+    }
+
+    nav {
+      background-color: #61a988;
+      /* dark green background */
+      padding: 10px 0;
+    }
+
+    nav ul li {
+      margin: 0 20px;
+    }
+
+    nav ul li a {
+      text-decoration: none;
+      color: white;
+      font-size: 18px;
+      padding: 8px 16px;
+      border-radius: 5px;
+      transition: background-color 0.3s ease;
+    }
+
+    nav ul li a:hover {
+      background-color: #86c06b;
+    }
+
+    button {
+      background-color: #1c95ff;
+      color: #1c95ff;
+      border: none;
+      padding: 10px 20px;
+      font-size: 16px;
+      font-weight: bold;
+      border-radius: 8px;
+      transition: background-color 0.3s ease, transform 0.2s ease;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+  </style>
+</head>
+
+<body>
+
+  <h1>🛠️ Google Chrome Developer Tools (DevTools) - DocsToSheets</h1>
+  <header class="navbar">
+    <div class="logo-container">
+      <div class="logo-container">
+        <img src="logo.png" alt="Logo" class="logo" />
+      </div>
+    </div>
+  </header>
+  <p><strong>Google Chrome Developer Tools</strong>, commonly known as <em>DevTools</em>, is a set of web authoring and
+    debugging tools built directly into the Google Chrome browser. DevTools helps developers inspect HTML, CSS, and
+    JavaScript of web pages, debug issues, analyze performance, and optimize websites.</p>
+
+  <h2>🔍 What is Chrome DevTools?</h2>
+  <p>Chrome DevTools is an integrated suite of tools in the Chrome browser that allows developers to:</p>
+  <ul>
+    <li>Inspect and modify the DOM and CSS styles in real-time.</li>
+    <li>Debug JavaScript using breakpoints and watch variables.</li>
+    <li>Analyze website performance including load times and CPU usage.</li>
+    <li>Audit accessibility and SEO.</li>
+    <li>Monitor network activity and API calls.</li>
+    <li>Simulate mobile devices and test responsive layouts.</li>
+  </ul>
+
+  <h2>🚀 How to Open Chrome DevTools</h2>
+  <ul>
+    <li>Right-click on any webpage element and select <em>Inspect</em>.</li>
+    <li>Press <kbd>F12</kbd> or <kbd>Ctrl+Shift+I</kbd> (<kbd>Cmd+Option+I</kbd> on Mac).</li>
+    <li>From the Chrome menu: Menu → More Tools → Developer Tools.</li>
+  </ul>
+
+  <h2>🛠️ Key Panels and Features</h2>
+  <ul>
+    <li><strong>Elements Panel:</strong> View and edit HTML and CSS. Perfect for live editing and debugging UI issues.
+    </li>
+    <li><strong>Console Panel:</strong> Run JavaScript code snippets and view errors or logs.</li>
+    <li><strong>Sources Panel:</strong> Debug JavaScript with breakpoints, call stacks, and step-through execution.</li>
+    <li><strong>Network Panel:</strong> Monitor network requests, response times, and status codes to analyze
+      performance.</li>
+    <li><strong>Performance Panel:</strong> Record and analyze runtime performance, frame rate, and CPU usage.</li>
+    <li><strong>Memory Panel:</strong> Detect memory leaks and optimize usage via heap snapshots and allocation
+      timelines.</li>
+    <li><strong>Application Panel:</strong> Inspect resources like Local Storage, Session Storage, Cookies, and Service
+      Workers.</li>
+    <li><strong>Security Panel:</strong> Check HTTPS, certificates, and security issues on your site.</li>
+    <li><strong>Lighthouse:</strong> Automated auditing tool to generate performance, accessibility, and SEO reports.
+    </li>
+  </ul>
+
+  <h2>💡 Practical Uses of DevTools</h2>
+  <ul>
+    <li>Quickly test CSS changes without editing source files.</li>
+    <li>Debug JavaScript errors by pausing execution and examining variables.</li>
+    <li>Identify slow-loading resources and optimize them.</li>
+    <li>Simulate various device screen sizes to test responsiveness.</li>
+    <li>Inspect cookies and local storage to debug authentication issues.</li>
+    <li>Generate accessibility audits to improve user experience.</li>
+  </ul>
+
+  <h2>📚 Example: Using Console to Test JavaScript</h2>
+  <pre><code>// Open console and type:
+console.log("Hello, DevTools!");
+// View output immediately below
+</code></pre>
+
+  <h2>🌐 Useful Links</h2>
+  <ul>
+    <li><a href="https://developer.chrome.com/docs/devtools/" target="_blank" rel="noopener">Official Chrome DevTools
+        Documentation</a></li>
+    <li><a href="https://developers.google.com/web/tools/chrome-devtools" target="_blank" rel="noopener">Google Web
+        DevTools Overview</a></li>
+    <li><a href="https://web.dev/devtools/" target="_blank" rel="noopener">Web.dev DevTools Guides</a></li>
+    <li><a href="https://www.youtube.com/watch?v=H0XScE08hy8" target="_blank" rel="noopener">Chrome DevTools Tutorial
+        for Beginners (YouTube)</a></li>
+  </ul>
+
+  <footer>
+    <p>© 2025 DocsToSheets | Powered by Google Chrome DevTools</p>
+  </footer>
+  <div>
+    <nav>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="https://forms.gle/j2bYyeH9ESD5VXre8">Feedback</a></li>
+      </ul>
+    </nav>
+  </div>
+</body>
+
+</html>

@@ -1,0 +1,113 @@
+name: Validate and Deploy to Vercel
+
+on:
+  push:
+    branches:
+      - "**"
+  pull_request:
+    branches:
+      - main
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-cd-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate:
+    name: Validate source
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out exact commit
+        uses: actions/checkout@v4
+
+      - name: Validate JavaScript syntax
+        run: |
+          node --check server/server.js
+          node --check public/js/firebase-config.js
+
+      - name: Validate project build
+        run: npm run build
+
+  security:
+    name: Security checks
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out exact commit
+        uses: actions/checkout@v4
+
+      - name: Check for committed secret files
+        shell: bash
+        run: |
+          set -euo pipefail
+          if find . -type f \( -name '.env' -o -name '.env.*' -o -name '*.pem' -o -name '*.p12' -o -name '*.pfx' \) -not -name '.env.example' -not -path './.git/*' | grep -q .; then
+            echo "Sensitive environment or key files must not be committed."
+            exit 1
+          fi
+
+      - name: Check for private key and credential material
+        shell: bash
+        run: |
+          set -euo pipefail
+          if git grep -n -I -E 'BEGIN (RSA |EC |OPENSSH )?PRIVATE KEY|VERCEL_OIDC_TOKEN|serviceAccount|private_key|client_secret|JWT_SECRET' -- ':!package-lock.json' ':!.github/workflows/ci-cd.yml'; then
+            echo "Potential private credential material found in tracked files."
+            exit 1
+          fi
+
+      - name: Audit production dependencies
+        run: npm audit --omit=dev
+
+  deploy:
+    name: Deploy validated main commit
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    needs:
+      - validate
+      - security
+    runs-on: ubuntu-latest
+    environment:
+      name: production
+    steps:
+      - name: Check out validated commit
+        uses: actions/checkout@v4
+
+      - name: Set up supported Node.js version
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Install Vercel CLI
+        run: npm install --global vercel@latest
+
+      - name: Verify Vercel deployment secrets
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+          VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+        run: |
+          set -euo pipefail
+          test -n "$VERCEL_TOKEN" || { echo "Missing GitHub Actions secret: VERCEL_TOKEN"; exit 1; }
+          test -n "$VERCEL_ORG_ID" || { echo "Missing GitHub Actions secret: VERCEL_ORG_ID"; exit 1; }
+          test -n "$VERCEL_PROJECT_ID" || { echo "Missing GitHub Actions secret: VERCEL_PROJECT_ID"; exit 1; }
+          [[ "$VERCEL_ORG_ID" == team_* ]] || { echo "VERCEL_ORG_ID must be the Vercel team ID beginning with team_."; exit 1; }
+          [[ "$VERCEL_PROJECT_ID" == prj_* ]] || { echo "VERCEL_PROJECT_ID must be the Vercel project ID beginning with prj_."; exit 1; }
+          [[ "$VERCEL_TOKEN" != *[[:space:]]* ]] || { echo "VERCEL_TOKEN contains whitespace; replace it without copied spaces or newlines."; exit 1; }
+
+
+      - name: Verify Vercel token authentication
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+        run: |
+          set -euo pipefail
+          if ! vercel whoami --token "$VERCEL_TOKEN"; then
+            echo "Vercel authentication failed. Check that VERCEL_TOKEN is valid and belongs to an active Vercel account with access to the target org/project."
+            exit 1
+          fi
+
+      - name: Deploy exact validated commit to production
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+          VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+        run: vercel deploy --prod --yes --token "$VERCEL_TOKEN" --scope "$VERCEL_ORG_ID" --project "$VERCEL_PROJECT_ID"

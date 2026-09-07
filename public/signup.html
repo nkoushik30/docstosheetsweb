@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sign Up - DocsToSheets</title>
+  <link rel="icon" type="image/png" href="logo.png">
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Times New Roman", Times, serif;
+    }
+
+    body {
+
+      background: linear-gradient(to right, #f9f9f9, #e9ecef);
+      min-height: 100vh;
+    }
+
+    header {
+      background-color: #fff;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      padding: 15px 30px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-size: 1.6rem;
+      font-weight: bold;
+      color: #333;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 20px;
+    }
+
+    nav ul li a {
+      text-decoration: none;
+      color: #555;
+      font-weight: 500;
+      transition: color 0.3s;
+    }
+
+    nav ul li a:hover {
+      color: #ff8c00;
+    }
+
+    .signup-container {
+      background: #fff;
+      max-width: 500px;
+      margin: 50px auto;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+      animation: fadeIn 0.6s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+      from {
+        transform: translateY(30px);
+        opacity: 0;
+      }
+
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+
+    .signup-header h1 {
+      margin-bottom: 5px;
+      color: #333;
+    }
+
+    .signup-header p {
+      color: #777;
+      margin-bottom: 25px;
+    }
+
+    .signup-form {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .form-row {
+      display: flex;
+      gap: 15px;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+      margin-bottom: 18px;
+    }
+
+    .form-group label {
+      margin-bottom: 6px;
+      color: #444;
+    }
+
+    .form-group input {
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 15px;
+    }
+
+    .form-group input:focus {
+      border-color: #ff8c00;
+      box-shadow: 0 0 0 3px rgba(255, 140, 0, 0.2);
+    }
+
+    .terms {
+      font-size: 14px;
+      color: #555;
+      margin: 10px 0 20px;
+    }
+
+    .terms input[type="checkbox"] {
+      accent-color: #ff8c00;
+      margin-right: 8px;
+    }
+
+    .signup-button-large {
+      padding: 12px 20px;
+      font-size: 16px;
+      font-weight: 600;
+      color: rgb(77, 22, 22);
+      background: #ff8c00;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    .signup-button-large:hover {
+      background: #e67300;
+    }
+
+    .form-footer {
+      text-align: center;
+      margin-top: 20px;
+    }
+
+    .form-footer a {
+      color: #ff8c00;
+      text-decoration: none;
+    }
+
+    .form-footer a:hover {
+      text-decoration: underline;
+    }
+
+    #error-message,
+    #success-message {
+      font-size: 14px;
+      padding: 10px;
+      margin-bottom: 15px;
+      border-radius: 6px;
+      display: none;
+    }
+
+    #error-message {
+      background: #ffe6e6;
+      color: #b00020;
+    }
+
+    #success-message {
+      background: #e6ffed;
+      color: #007e33;
+    }
+
+    @media (max-width: 600px) {
+      .form-row {
+        flex-direction: column;
+      }
+
+      .signup-container {
+        margin: 30px 20px;
+      }
+
+      .signup-button-large {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <div class="logo">DocsToSheets</div>
+    <nav>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <div class="signup-container">
+      <div class="signup-header">
+        <h1>Create an Account</h1>
+        <p>Join our platform and start exploring</p>
+      </div>
+
+      <form class="signup-form" id="signupForm">
+        <div id="error-message"></div>
+        <div id="success-message"></div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="firstName">First Name</label>
+            <input type="text" id="firstName" required />
+          </div>
+          <div class="form-group">
+            <label for="lastName">Last Name</label>
+            <input type="text" id="lastName" required />
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input type="email" id="email" required />
+        </div>
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input type="password" id="password" required />
+        </div>
+        <div class="form-group">
+          <label for="confirmPassword">Confirm Password</label>
+          <input type="password" id="confirmPassword" required />
+        </div>
+        <div class="terms">
+          <input type="checkbox" id="terms" />
+          <label for="terms">I agree to the <a href="#">Terms</a> and <a href="#">Privacy Policy</a>.</label>
+        </div>
+        <button type="submit" class="signup-button-large">Create Account</button>
+
+        <div style="margin-top: 15px; text-align: center;">
+          <button type="button" id="google-signup"
+            style="background:#fff;border:1px solid #ccc;padding:10px 15px;border-radius:6px;cursor:pointer;">
+            <img src="https://developers.google.com/identity/images/g-logo.png" width="18"
+              style="vertical-align:middle;margin-right:8px;">
+            Sign up with Google
+          </button>
+        </div>
+
+        <div class="form-footer">
+          <p>Already have an account? <a href="signin.html">Sign in</a></p>
+          <a href="index.html">← Back to Home</a>
+        </div>
+      </form>
+    </div>
+  </main>
+  <script src="js/firebase-config.js"></script>
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.10/firebase-app.js";
+    import {
+      getAuth,
+      createUserWithEmailAndPassword,
+      GoogleAuthProvider,
+      signInWithPopup
+    } from "https://www.gstatic.com/firebasejs/9.6.10/firebase-auth.js";
+    import {
+      getFirestore,
+      doc,
+      setDoc
+    } from "https://www.gstatic.com/firebasejs/9.6.10/firebase-firestore.js";
+
+    const app = initializeApp(window.docsToSheetsFirebaseConfig);
+    const auth = getAuth(app);
+    const db = getFirestore(app);
+    const provider = new GoogleAuthProvider();
+
+    document.getElementById("signupForm").addEventListener("submit", async (e) => {
+      e.preventDefault();
+
+      const firstName = document.getElementById("firstName").value.trim();
+      const lastName = document.getElementById("lastName").value.trim();
+      const email = document.getElementById("email").value.trim();
+      const password = document.getElementById("password").value.trim();
+      const confirmPassword = document.getElementById("confirmPassword").value.trim();
+      const termsChecked = document.getElementById("terms").checked;
+
+      const errorBox = document.getElementById("error-message");
+      const successBox = document.getElementById("success-message");
+
+      errorBox.style.display = "none";
+      successBox.style.display = "none";
+
+      if (!termsChecked) return showError("You must agree to the terms and privacy policy.");
+      if (password !== confirmPassword) return showError("Passwords do not match.");
+      if (password.length < 6) return showError("Password must be at least 6 characters.");
+
+      try {
+        const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+        const user = userCredential.user;
+
+        await setDoc(doc(db, "users", user.uid), {
+          firstName,
+          lastName,
+          email,
+          createdAt: new Date().toISOString()
+        });
+
+        showSuccess("Account created successfully! Redirecting...");
+        setTimeout(() => window.location.href = "signin.html", 2000);
+      } catch (error) {
+        console.error(error);
+        if (error.code === "auth/email-already-in-use") {
+          showError("Email already in use. Try signing in.");
+        } else {
+          showError("Unable to create your account. Please check your details and try again.");
+        }
+      }
+    });
+
+    document.getElementById("google-signup").addEventListener("click", async () => {
+      try {
+        const result = await signInWithPopup(auth, provider);
+        const user = result.user;
+
+        await setDoc(doc(db, "users", user.uid), {
+          name: user.displayName,
+          email: user.email,
+          photo: user.photoURL,
+          provider: "google",
+          createdAt: new Date()
+        });
+
+        window.location.href = "Homepage.html";
+      } catch (error) {
+        alert("Google Sign-Up failed. Please try again.");
+        console.error(error);
+      }
+    });
+
+    function showError(msg) {
+      const box = document.getElementById("error-message");
+      box.textContent = msg;
+      box.style.display = "block";
+    }
+
+    function showSuccess(msg) {
+      const box = document.getElementById("success-message");
+      box.textContent = msg;
+      box.style.display = "block";
+    }
+  </script>
+
+</body>
+
+</html>

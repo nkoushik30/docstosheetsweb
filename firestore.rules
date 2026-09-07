@@ -1,0 +1,41 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function signedIn() {
+      return request.auth != null;
+    }
+
+    function ownsUserDocument(uid) {
+      return signedIn() && request.auth.uid == uid;
+    }
+
+    function validUserFields() {
+      return request.resource.data.keys().hasOnly([
+        'firstName', 'lastName', 'name', 'email', 'photo',
+        'provider', 'createdAt', 'lastLogin'
+      ])
+      && request.resource.data.email is string
+      && request.resource.data.email == request.auth.token.email;
+    }
+
+    function immutableUserFields() {
+      return request.resource.data.createdAt == resource.data.createdAt
+        && request.resource.data.email == resource.data.email
+        && request.resource.data.provider == resource.data.provider;
+    }
+
+    match /users/{uid} {
+      allow read: if ownsUserDocument(uid);
+      allow create: if ownsUserDocument(uid) && validUserFields();
+      allow update: if ownsUserDocument(uid)
+        && validUserFields()
+        && immutableUserFields();
+      allow delete: if false;
+    }
+
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

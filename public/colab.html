@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Google Colab ML Notebook - DocsToSheets</title>
+  <link rel="icon" type="image/png" href="logo.png">
+
+  <style>
+    body {
+      font-family: "Times New Roman", Times, serif;
+      background-color: #f9fef9;
+      color: #333;
+      padding: 20px;
+    }
+
+    h2 {
+      color: #2e7d32;
+      margin-top: 40px;
+      border-bottom: 2px solid #c8e6c9;
+      padding-bottom: 5px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 10px;
+      margin-bottom: 30px;
+      background-color: #fff;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    }
+
+    th,
+    td {
+      padding: 12px 15px;
+      text-align: left;
+      border-bottom: 1px solid #ddd;
+    }
+
+    th {
+      background-color: #a5d6a7;
+      color: #1b5e20;
+    }
+
+    header {
+      height: 350px;
+      background-color: #fffcfc;
+      display: flex;
+      align-items: center;
+      padding: 60 40px;
+      color: green;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);
+      font-weight: bold;
+      font-size: 24px;
+      gap: 10px;
+      z-index: 1000;
+    }
+
+    header .logo-text {
+      font-size: 200px;
+    }
+
+    header .logo-text sup {
+      font-size: 160px;
+      vertical-align: super;
+      color: darkgreen;
+    }
+
+    header .site-address {
+      color: #ffffff;
+      font-size: 160px;
+      user-select: text;
+    }
+
+    tr:hover {
+      background-color: #f1f8e9;
+    }
+
+    h1 {
+      text-align: center;
+    }
+
+    code {
+      background-color: #e8f5e9;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 0.95em;
+    }
+
+    nav ul {
+      list-style-type: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      /* center the items */
+    }
+
+    nav {
+      background-color: #61a988;
+      /* dark green background */
+      padding: 10px 0;
+    }
+
+    nav ul li {
+      margin: 0 20px;
+    }
+
+    nav ul li a {
+      text-decoration: none;
+      color: white;
+      font-size: 18px;
+      padding: 8px 16px;
+      border-radius: 5px;
+      transition: background-color 0.3s ease;
+    }
+
+    nav ul li a:hover {
+      background-color: #86c06b;
+    }
+
+    button {
+      background-color: #1c95ff;
+      color: #1c95ff;
+      border: none;
+      padding: 10px 20px;
+      font-size: 16px;
+      font-weight: bold;
+      border-radius: 8px;
+      transition: background-color 0.3s ease, transform 0.2s ease;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+  </style>
+</head>
+
+<body>
+
+  <h1>📚 Google Colab ML Notebook - DocsToSheets</h1>
+  <header class="navbar">
+    <div class="logo-container">
+      <div class="logo-container">
+        <img src="logo.png" alt="Logo" class="logo" />
+      </div>
+    </div>
+  </header>
+  <p><strong>Google Colaboratory</strong> (commonly known as <strong>Google Colab</strong>) is a free cloud-based
+    Jupyter notebook environment provided by Google, primarily used for machine learning and data science. It allows you
+    to write and execute Python code in your browser with zero configuration required, access to GPUs and TPUs, and easy
+    sharing capabilities.</p>
+
+  <h2>🔍 What is Google Colab?</h2>
+  <p>Google Colab is an online platform that provides Jupyter Notebook capabilities without needing any setup on your
+    local machine. It is designed especially for machine learning and data analysis tasks and integrates tightly with
+    Google Drive, making it easy to store, share, and collaborate on projects.</p>
+
+  <h2>⚙️ Key Features of Google Colab</h2>
+  <ul>
+    <li><strong>Free GPU/TPU Support:</strong> Access to NVIDIA GPUs and TPUs for faster ML computations without extra
+      cost.</li>
+    <li><strong>Cloud-Based:</strong> Run your notebooks on Google's servers — no need for a powerful local machine.
+    </li>
+    <li><strong>Integration with Google Drive:</strong> Easily save and load notebooks and data files directly from
+      Google Drive.</li>
+    <li><strong>Pre-installed Libraries:</strong> Comes preloaded with popular Python libraries like TensorFlow,
+      PyTorch, NumPy, Pandas, Matplotlib, and more.</li>
+    <li><strong>Interactive Visualizations:</strong> Supports inline charts and graphics for data analysis and model
+      visualization.</li>
+    <li><strong>Collaboration:</strong> Share notebooks with others with edit or view permissions, similar to Google
+      Docs.</li>
+    <li><strong>Easy Sharing & Publishing:</strong> Share links, export as PDF, HTML, or Jupyter Notebook (.ipynb)
+      files.</li>
+  </ul>
+
+  <h2>🛠️ Use Cases</h2>
+  <ul>
+    <li>Machine Learning model prototyping and training</li>
+    <li>Data cleaning, exploration, and visualization</li>
+    <li>Teaching and learning Python programming and data science</li>
+    <li>Sharing reproducible research and notebooks</li>
+    <li>Collaborative data science projects</li>
+  </ul>
+
+  <h2>💻 Example: Simple TensorFlow Model in Google Colab</h2>
+  <pre><code>import tensorflow as tf
+from tensorflow import keras
+import numpy as np
+
+# Load dataset
+mnist = keras.datasets.mnist
+(x_train, y_train), (x_test, y_test) = mnist.load_data()
+
+# Normalize data
+x_train, x_test = x_train / 255.0, x_test / 255.0
+
+# Build model
+model = keras.Sequential([
+  keras.layers.Flatten(input_shape=(28, 28)),
+  keras.layers.Dense(128, activation='relu'),
+  keras.layers.Dropout(0.2),
+  keras.layers.Dense(10, activation='softmax')
+])
+
+# Compile model
+model.compile(optimizer='adam',
+              loss='sparse_categorical_crossentropy',
+              metrics=['accuracy'])
+
+# Train model
+model.fit(x_train, y_train, epochs=5)
+
+# Evaluate model
+model.evaluate(x_test, y_test)
+</code></pre>
+
+  <h2>🔗 How to Use Google Colab</h2>
+  <ol>
+    <li>Go to the <a href="https://colab.research.google.com/" target="_blank" rel="noopener">Google Colab website</a>.
+    </li>
+    <li>Sign in with your Google account.</li>
+    <li>Create a new notebook or upload an existing one.</li>
+    <li>Write and run Python code cells directly in the browser.</li>
+    <li>Use <code>Runtime &gt; Change runtime type</code> to enable GPU or TPU acceleration.</li>
+    <li>Save your notebook to Google Drive or download it as needed.</li>
+  </ol>
+
+  <h2>⚠️ Limitations</h2>
+  <ul>
+    <li>Session durations are limited (typically 12 hours max).</li>
+    <li>Idle timeout disconnects after some inactivity (usually 90 minutes).</li>
+    <li>Limited RAM and storage available (approx 12GB RAM in free tier).</li>
+    <li>Users must save work often to prevent loss on session disconnect.</li>
+  </ul>
+
+  <h2>💡 Tips & Tricks</h2>
+  <ul>
+    <li>Mount your Google Drive to access files with
+      <code>from google.colab import drive; drive.mount('/content/drive')</code>.</li>
+    <li>Use <code>!pip install &lt;package&gt;</code> to install any Python package inside your notebook.</li>
+    <li>Take advantage of Markdown cells for rich documentation and explanations.</li>
+    <li>Collaborate by sharing the notebook URL with edit or view permissions.</li>
+    <li>Use keyboard shortcuts like <code>Ctrl+Enter</code> to run cells quickly.</li>
+  </ul>
+
+  <h2>📚 Resources</h2>
+  <ul>
+    <li><a href="https://colab.research.google.com/notebooks/intro.ipynb" target="_blank" rel="noopener">Official Google
+        Colab Introduction Notebook</a></li>
+    <li><a href="https://colab.research.google.com/notebooks/snippets/advanced_outputs.ipynb" target="_blank"
+        rel="noopener">Advanced Outputs & Visualizations</a></li>
+    <li><a href="https://www.tensorflow.org/tutorials" target="_blank" rel="noopener">TensorFlow Tutorials</a></li>
+    <li><a href="https://pytorch.org/tutorials/" target="_blank" rel="noopener">PyTorch Tutorials</a></li>
+  </ul>
+
+  <footer>
+    <p style="text-align:center; margin-top: 50px; font-size: 14px; color: #777;">
+      © 2025 DocsToSheets | Powered by Google Colab and Open Source ML Tools
+    </p>
+  </footer>
+  <div>
+    <nav>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="https://forms.gle/j2bYyeH9ESD5VXre8">Feedback</a></li>
+      </ul>
+    </nav>
+  </div>
+</body>
+
+</html>

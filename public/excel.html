@@ -1,0 +1,686 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Excel Tools - DocsToSheets</title>
+  <link rel="icon" type="image/png" href="logo.png">
+
+  <style>
+    body {
+      font-family: "Times New Roman", Times, serif;
+      background-color: #f9fef9;
+      color: #333;
+      padding: 20px;
+    }
+
+    h2 {
+      color: #2e7d32;
+      margin-top: 40px;
+      border-bottom: 2px solid #c8e6c9;
+      padding-bottom: 5px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 10px;
+      margin-bottom: 30px;
+      background-color: #fff;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    }
+
+    th,
+    td {
+      padding: 12px 15px;
+      text-align: left;
+      border-bottom: 1px solid #ddd;
+    }
+
+    th {
+      background-color: #a5d6a7;
+      color: #1b5e20;
+    }
+
+    header {
+      height: 350px;
+      background-color: #fffcfc;
+      display: flex;
+      align-items: center;
+      padding: 60 40px;
+      color: green;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);
+      font-weight: bold;
+      font-size: 24px;
+      gap: 10px;
+      z-index: 1000;
+    }
+
+    header .logo-text {
+      font-size: 200px;
+    }
+
+    header .logo-text sup {
+      font-size: 160px;
+      vertical-align: super;
+      color: darkgreen;
+    }
+
+    header .site-address {
+      color: #ffffff;
+      font-size: 160px;
+      user-select: text;
+    }
+
+    tr:hover {
+      background-color: #f1f8e9;
+    }
+
+    h1 {
+      text-align: center;
+    }
+
+    code {
+      background-color: #e8f5e9;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 0.95em;
+    }
+
+    nav ul {
+      list-style-type: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      /* center the items */
+    }
+
+    nav {
+      background-color: #61a988;
+      /* dark green background */
+      padding: 10px 0;
+    }
+
+    nav ul li {
+      margin: 0 20px;
+    }
+
+    nav ul li a {
+      text-decoration: none;
+      color: white;
+      font-size: 18px;
+      padding: 8px 16px;
+      border-radius: 5px;
+      transition: background-color 0.3s ease;
+    }
+
+    nav ul li a:hover {
+      background-color: #86c06b;
+    }
+
+    button {
+      background-color: #1c95ff;
+      color: #1c95ff;
+      border: none;
+      padding: 10px 20px;
+      font-size: 16px;
+      font-weight: bold;
+      border-radius: 8px;
+      transition: background-color 0.3s ease, transform 0.2s ease;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+  </style>
+</head>
+
+<body>
+
+  <h1>📊 Microsoft Excel Tools - DocsToSheets</h1>
+  <header class="navbar">
+    <div class="logo-container">
+      <div class="logo-container">
+        <img src="logo.png" alt="Logo" class="logo" />
+      </div>
+    </div>
+  </header>
+
+  <h2>✅ Workbook & Worksheet Management</h2>
+  <table>
+    <tr>
+      <th>Shortcut</th>
+      <th>Function</th>
+      <th>How to Use</th>
+      <th>Why It's Useful</th>
+    </tr>
+
+    <tr>
+      <td>Ctrl + N</td>
+      <td>New Workbook</td>
+      <td>Press Ctrl and N together</td>
+      <td>Quickly starts a new blank Excel file</td>
+    </tr>
+    <tr>
+      <td>Ctrl + O</td>
+      <td>Open Workbook</td>
+      <td>Press Ctrl and O together</td>
+      <td>Access recent or saved files instantly</td>
+    </tr>
+    <tr>
+      <td>Ctrl + S</td>
+      <td>Save Workbook</td>
+      <td>Press Ctrl and S anytime</td>
+      <td>Prevents data loss by saving progress</td>
+    </tr>
+    <tr>
+      <td>Ctrl + Page Up / Page Down</td>
+      <td>Switch Worksheets</td>
+      <td>Use Ctrl with Page Up or Page Down</td>
+      <td>Navigates between sheets without mouse</td>
+    </tr>
+    <tr>
+      <td>Double-click on sheet tab</td>
+      <td>Rename Sheet</td>
+      <td>Double-click the tab name</td>
+      <td>Quickly change the sheet name for clarity</td>
+    </tr>
+    <tr>
+      <td>Right-click sheet → Insert/Delete</td>
+      <td>Insert/Delete Sheet</td>
+      <td>Right-click on any sheet tab</td>
+      <td>Manage sheets easily by adding/removing</td>
+    </tr>
+    <tr>
+      <td>Review tab → Protect Sheet</td>
+      <td>Protect Sheet</td>
+      <td>Use Review tab in Ribbon</td>
+      <td>Prevents changes to data or layout</td>
+    </tr>
+    <tr>
+      <td>Ctrl + F4</td>
+      <td>Close Workbook</td>
+      <td>Press Ctrl and F4</td>
+      <td>Quickly exits the current workbook</td>
+    </tr>
+    <tr>
+      <td>Ctrl + Tab</td>
+      <td>Switch Workbooks</td>
+      <td>Hold Ctrl and press Tab</td>
+      <td>Switch between open files quickly</td>
+    </tr>
+    <tr>
+      <td>Alt + F11</td>
+      <td>Open VBA Editor</td>
+      <td>Press Alt and F11</td>
+      <td>Write or debug macros (advanced users)</td>
+    </tr>
+    <tr>
+      <td>Ctrl + F6</td>
+      <td>Next Workbook Window</td>
+      <td>Use Ctrl + F6</td>
+      <td>Cycle through multiple open workbooks</td>
+    </tr>
+    <tr>
+      <td>Shift + F11</td>
+      <td>Insert New Worksheet</td>
+      <td>Press Shift and F11</td>
+      <td>Adds a new sheet instantly</td>
+    </tr>
+    <tr>
+      <td>Alt + H, D, S</td>
+      <td>Delete Sheet</td>
+      <td>Use Alt navigation to delete</td>
+      <td>Removes unwanted sheets from the workbook</td>
+    </tr>
+    <tr>
+      <td>Alt + E, L</td>
+      <td>Rename Sheet (Legacy)</td>
+      <td>Follow Alt key path</td>
+      <td>Used in older Excel versions</td>
+    </tr>
+    <tr>
+      <td>Alt + H, O, R</td>
+      <td>Rename Sheet (Ribbon)</td>
+      <td>Use Alt, then H, O, R</td>
+      <td>Renames using keyboard navigation</td>
+    </tr>
+    <tr>
+      <td>Alt + T, P, P</td>
+      <td>Protect Sheet Dialog</td>
+      <td>Alt → T → P → P</td>
+      <td>Enables sheet protection options</td>
+    </tr>
+    <tr>
+      <td>Alt + F8</td>
+      <td>Run Macro</td>
+      <td>Press Alt and F8</td>
+      <td>Access and run saved macros</td>
+    </tr>
+
+  </table>
+
+  <h2>🔢 Data Entry & Formatting</h2>
+  <table>
+    <tr>
+      <th>Shortcut / Action</th>
+      <th>Feature</th>
+      <th>How to Use</th>
+      <th>Why It's Useful</th>
+    </tr>
+
+    <tr>
+      <td>Drag the fill handle</td>
+      <td>Auto Fill</td>
+      <td>Select a cell, drag the bottom-right corner</td>
+      <td>Automatically fills series or patterns</td>
+    </tr>
+    <tr>
+      <td>Ctrl + E</td>
+      <td>Flash Fill</td>
+      <td>Enter data in pattern, press Ctrl + E</td>
+      <td>Automatically fills data based on patterns</td>
+    </tr>
+    <tr>
+      <td>Home tab → Number dropdown</td>
+      <td>Number Formatting</td>
+      <td>Select cell(s), choose format from dropdown</td>
+      <td>Formats values as currency, percentage, date, etc.</td>
+    </tr>
+    <tr>
+      <td>Home tab → Wrap Text</td>
+      <td>Wrap Text</td>
+      <td>Click on the Wrap Text icon</td>
+      <td>Displays all content within a cell neatly</td>
+    </tr>
+    <tr>
+      <td>Home tab → Merge & Center</td>
+      <td>Merge & Center</td>
+      <td>Select multiple cells, click Merge & Center</td>
+      <td>Combines cells and centers the text</td>
+    </tr>
+    <tr>
+      <td>Font group → Borders, Fill Color</td>
+      <td>Cell Borders & Shading</td>
+      <td>Select cells, apply border and fill options</td>
+      <td>Highlights and separates content visually</td>
+    </tr>
+    <tr>
+      <td>Home tab → Conditional Formatting</td>
+      <td>Conditional Formatting</td>
+      <td>Choose rules to highlight cells dynamically</td>
+      <td>Visualizes data trends and exceptions</td>
+    </tr>
+    <tr>
+      <td>Ctrl + ;</td>
+      <td>Insert Current Date</td>
+      <td>Press Ctrl + semicolon ( ; )</td>
+      <td>Quickly inserts today's date</td>
+    </tr>
+    <tr>
+      <td>Ctrl + Shift + :</td>
+      <td>Insert Current Time</td>
+      <td>Press Ctrl + Shift + colon ( : )</td>
+      <td>Quickly inserts current time</td>
+    </tr>
+    <tr>
+      <td>Ctrl + Shift + "$"</td>
+      <td>Apply Currency Format</td>
+      <td>Press Ctrl + Shift + 4</td>
+      <td>Formats numbers as currency</td>
+    </tr>
+    <tr>
+      <td>Ctrl + Shift + "%"</td>
+      <td>Apply Percentage Format</td>
+      <td>Press Ctrl + Shift + 5</td>
+      <td>Formats numbers as percentages</td>
+    </tr>
+    <tr>
+      <td>Ctrl + Shift + "#"</td>
+      <td>Apply Date Format</td>
+      <td>Press Ctrl + Shift + 3</td>
+      <td>Formats cell as a date</td>
+    </tr>
+    <tr>
+      <td>Ctrl + B</td>
+      <td>Bold Text</td>
+      <td>Select text/cell, press Ctrl + B</td>
+      <td>Highlights content with bold style</td>
+    </tr>
+    <tr>
+      <td>Ctrl + I</td>
+      <td>Italic Text</td>
+      <td>Select text/cell, press Ctrl + I</td>
+      <td>Applies italic style for emphasis</td>
+    </tr>
+    <tr>
+      <td>Ctrl + U</td>
+      <td>Underline Text</td>
+      <td>Select text/cell, press Ctrl + U</td>
+      <td>Adds underline for importance</td>
+    </tr>
+    <tr>
+      <td>Alt + H, H</td>
+      <td>Fill Cell Color</td>
+      <td>Use Alt key navigation</td>
+      <td>Adds background color to cells</td>
+    </tr>
+    <tr>
+      <td>Alt + H, B</td>
+      <td>Apply Borders</td>
+      <td>Use Alt → H → B via keyboard</td>
+      <td>Organizes data with clear borders</td>
+    </tr>
+
+
+  </table>
+
+  <h2>📐 Formulas & Functions</h2>
+  <table>
+    <tr>
+      <th>Shortcut / Action</th>
+      <th>Feature</th>
+      <th>How to Use</th>
+      <th>Why It's Useful</th>
+    </tr>
+
+    <tr>
+      <td>Shift + F3</td>
+      <td>Insert Function</td>
+      <td>Place cursor in a cell and press Shift + F3</td>
+      <td>Opens the function dialog box for help with formulas</td>
+    </tr>
+    <tr>
+      <td>Alt + =</td>
+      <td>AutoSum</td>
+      <td>Select a cell below a column of numbers, press Alt + =</td>
+      <td>Quickly adds values above the selected cell</td>
+    </tr>
+    <tr>
+      <td>SUM, AVERAGE, IF, VLOOKUP, INDEX, MATCH</td>
+      <td>Common Functions</td>
+      <td>Type = followed by function name (e.g., =SUM(A1:A5))</td>
+      <td>Used for calculations, lookups, and conditional logic</td>
+    </tr>
+    <tr>
+      <td>Formulas tab → Trace Precedents</td>
+      <td>Formula Auditing</td>
+      <td>Go to Formulas tab and click Trace Precedents</td>
+      <td>Helps visualize which cells affect a formula</td>
+    </tr>
+    <tr>
+      <td>Formulas tab → Define Name</td>
+      <td>Named Ranges</td>
+      <td>Select cells, go to Formulas → Define Name</td>
+      <td>Makes formulas more readable and manageable</td>
+    </tr>
+    <tr>
+      <td>F2</td>
+      <td>Edit Formula</td>
+      <td>Select cell and press F2</td>
+      <td>Allows in-place editing of cell formulas</td>
+    </tr>
+    <tr>
+      <td>Ctrl + `</td>
+      <td>Show Formulas</td>
+      <td>Press Ctrl + backtick (`) to toggle formula view</td>
+      <td>Displays formulas instead of results in cells</td>
+    </tr>
+    <tr>
+      <td>Ctrl + Shift + Enter</td>
+      <td>Array Formula</td>
+      <td>After typing formula, press Ctrl + Shift + Enter</td>
+      <td>Executes array operations over multiple cells</td>
+    </tr>
+    <tr>
+      <td>Alt + M, F, I</td>
+      <td>Insert Function Dialog</td>
+      <td>Use ribbon key sequence Alt → M → F → I</td>
+      <td>Accesses Insert Function box quickly via keyboard</td>
+    </tr>
+    <tr>
+      <td>Ctrl + Shift + U</td>
+      <td>Expand Formula Bar</td>
+      <td>Press Ctrl + Shift + U to toggle height of bar</td>
+      <td>Useful when writing long formulas</td>
+    </tr>
+    <tr>
+      <td>Alt + M, R</td>
+      <td>Trace Precedents</td>
+      <td>Use Alt ribbon keys to highlight source cells</td>
+      <td>Shows which cells a formula depends on</td>
+    </tr>
+    <tr>
+      <td>Alt + M, D</td>
+      <td>Trace Dependents</td>
+      <td>Use Alt ribbon keys to find dependent cells</td>
+      <td>Reveals which cells are affected by the formula</td>
+    </tr>
+    <tr>
+      <td>Alt + M, A</td>
+      <td>Remove Arrows</td>
+      <td>Go to Formulas tab → Remove Arrows</td>
+      <td>Clears auditing arrows from worksheet</td>
+    </tr>
+    <tr>
+      <td>Alt + M, N</td>
+      <td>Name Manager</td>
+      <td>Use Alt keys to open the Name Manager</td>
+      <td>Manage all named ranges in workbook</td>
+    </tr>
+    <tr>
+      <td>Alt + M, D</td>
+      <td>Define Name</td>
+      <td>Open Define Name window via ribbon keys</td>
+      <td>Assign meaningful names to ranges</td>
+    </tr>
+
+  </table>
+
+  <h2>📈 Charts & Visualization</h2>
+  <table>
+    <tr>
+      <th>Shortcut / Action</th>
+      <th>Feature</th>
+      <th>How to Use</th>
+      <th>Why It's Useful</th>
+    </tr>
+
+    <tr>
+      <td>Alt + F1</td>
+      <td>Insert Chart</td>
+      <td>Press Alt + F1 to insert a default chart on the current sheet</td>
+      <td>Quickly visualize data without leaving keyboard</td>
+    </tr>
+    <tr>
+      <td>Insert tab → Choose Chart</td>
+      <td>Chart Types</td>
+      <td>Go to Insert tab and select desired chart type</td>
+      <td>Select the most appropriate chart for your data</td>
+    </tr>
+    <tr>
+      <td>Click + icon beside chart</td>
+      <td>Chart Elements</td>
+      <td>Click the plus icon next to chart to add/remove elements</td>
+      <td>Customize chart with titles, legends, gridlines easily</td>
+    </tr>
+    <tr>
+      <td>Design tab → Chart Styles</td>
+      <td>Chart Styles</td>
+      <td>Go to Design tab and pick a style</td>
+      <td>Enhance chart appearance for better presentation</td>
+    </tr>
+    <tr>
+      <td>F11</td>
+      <td>Create Chart on New Sheet</td>
+      <td>Press F11 to create a chart on a separate sheet</td>
+      <td>Focus on the chart without worksheet clutter</td>
+    </tr>
+    <tr>
+      <td>Alt + N, R</td>
+      <td>Insert Recommended Charts</td>
+      <td>Press Alt, then N, then R to open recommended charts</td>
+      <td>Get suggested charts based on selected data</td>
+    </tr>
+    <tr>
+      <td>Alt + N, Q</td>
+      <td>Insert Quick Chart</td>
+      <td>Use Alt, N, Q to insert a quick default chart</td>
+      <td>Faster than manual chart creation steps</td>
+    </tr>
+    <tr>
+      <td>Alt + J, C</td>
+      <td>Customize Chart Elements</td>
+      <td>Press Alt, J, C to access chart element options</td>
+      <td>Add or remove titles, labels, legends, etc.</td>
+    </tr>
+    <tr>
+      <td>Alt + J, D</td>
+      <td>Change Chart Type</td>
+      <td>Press Alt, J, D to switch chart types</td>
+      <td>Adjust chart for better data visualization</td>
+    </tr>
+    <tr>
+      <td>Alt + J, T</td>
+      <td>Switch Row/Column</td>
+      <td>Use Alt, J, T to toggle data orientation in chart</td>
+      <td>Change how data is grouped for clearer insights</td>
+    </tr>
+    <tr>
+      <td>Alt + J, A</td>
+      <td>Add Chart Element</td>
+      <td>Press Alt, J, A to add elements like axis titles</td>
+      <td>Enhance chart information and readability</td>
+    </tr>
+    <tr>
+      <td>Alt + J, H</td>
+      <td>Move Chart</td>
+      <td>Use Alt, J, H to move chart to a different location or sheet</td>
+      <td>Organize workbook layout for better workflow</td>
+    </tr>
+    <tr>
+      <td>Alt + J, F</td>
+      <td>Format Chart Selection</td>
+      <td>Press Alt, J, F to open formatting options for selected chart part</td>
+      <td>Customize colors, fonts, borders, and styles</td>
+    </tr>
+    <tr>
+      <td>Alt + J, E</td>
+      <td>Edit Chart Data</td>
+      <td>Press Alt, J, E to edit the data source for the chart</td>
+      <td>Update chart automatically when data changes</td>
+    </tr>
+
+  </table>
+
+  <h2>🧮 Data Tools</h2>
+  <table>
+    <tr>
+      <th>Shortcut / Action</th>
+      <th>Feature</th>
+      <th>How to Use</th>
+      <th>Why It's Useful</th>
+    </tr>
+
+    <tr>
+      <td>Home tab → Sort & Filter</td>
+      <td>Sort & Filter</td>
+      <td>Go to Home tab and click Sort & Filter dropdown</td>
+      <td>Organize data quickly by sorting or filtering</td>
+    </tr>
+    <tr>
+      <td>Data tab → Data Validation</td>
+      <td>Data Validation</td>
+      <td>Open Data tab and select Data Validation option</td>
+      <td>Restrict input values to improve data accuracy</td>
+    </tr>
+    <tr>
+      <td>Data tab → Remove Duplicates</td>
+      <td>Remove Duplicates</td>
+      <td>Click Remove Duplicates in Data tab</td>
+      <td>Clean data by eliminating repeated entries</td>
+    </tr>
+    <tr>
+      <td>Data tab → Text to Columns</td>
+      <td>Text to Columns</td>
+      <td>Use Text to Columns in Data tab to split cell data</td>
+      <td>Separate combined data into multiple columns</td>
+    </tr>
+    <tr>
+      <td>Data tab → Flash Fill</td>
+      <td>Flash Fill</td>
+      <td>Go to Data tab and select Flash Fill</td>
+      <td>Automatically fill data based on pattern recognition</td>
+    </tr>
+    <tr>
+      <td>Alt + A, S, S</td>
+      <td>Sort A to Z</td>
+      <td>Press Alt, then A, then S, then S for ascending sort</td>
+      <td>Sort data alphabetically from A to Z</td>
+    </tr>
+    <tr>
+      <td>Alt + A, S, D</td>
+      <td>Sort Z to A</td>
+      <td>Press Alt, then A, then S, then D for descending sort</td>
+      <td>Sort data alphabetically from Z to A</td>
+    </tr>
+    <tr>
+      <td>Alt + A, T</td>
+      <td>Apply Filter</td>
+      <td>Use Alt + A + T to toggle filters on selected columns</td>
+      <td>Easily filter data to show only relevant rows</td>
+    </tr>
+    <tr>
+      <td>Alt + D, F, F</td>
+      <td>Advanced Filter</td>
+      <td>Press Alt, D, F, F to open advanced filter options</td>
+      <td>Perform complex filtering with criteria ranges</td>
+    </tr>
+    <tr>
+      <td>Alt + A, V, V</td>
+      <td>Data Validation Dialog</td>
+      <td>Press Alt, A, V, V to open validation dialog</td>
+      <td>Set rules to control cell input values</td>
+    </tr>
+    <tr>
+      <td>Alt + A, M</td>
+      <td>Remove Duplicates</td>
+      <td>Use Alt + A + M to open Remove Duplicates tool</td>
+      <td>Efficiently remove duplicate data entries</td>
+    </tr>
+    <tr>
+      <td>Alt + A, E</td>
+      <td>Text to Columns Wizard</td>
+      <td>Press Alt + A + E to launch the wizard</td>
+      <td>Split cell contents into multiple columns with options</td>
+    </tr>
+    <tr>
+      <td>Ctrl + Alt + L</td>
+      <td>Reapply Last Filter</td>
+      <td>Press Ctrl + Alt + L to refresh last applied filter</td>
+      <td>Quickly update filtered data view after changes</td>
+    </tr>
+    <tr>
+      <td>Alt + A, G</td>
+      <td>Group Data</td>
+      <td>Press Alt, A, G to group rows or columns</td>
+      <td>Organize related data for easy expansion/collapse</td>
+    </tr>
+    <tr>
+      <td>Alt + A, U</td>
+      <td>Ungroup Data</td>
+      <td>Press Alt, A, U to ungroup grouped data</td>
+      <td>Remove grouping to view data fully</td>
+    </tr>
+
+  </table>
+  <div>
+    <nav>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="https://forms.gle/j2bYyeH9ESD5VXre8">Feedback</a></li>
+      </ul>
+    </nav>
+  </div>
+</body>
+
+</html>

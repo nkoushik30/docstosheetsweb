@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>🛠️ Code Editor - VS Code Features</title>
+  <link rel="icon" type="image/png" href="logo.png">
+
+  <style>
+    body {
+      font-family: "Times New Roman", Times, serif;
+      background-color: #f9fef9;
+      color: #333;
+      padding: 20px;
+    }
+
+    h2 {
+      color: #2e7d32;
+      margin-top: 40px;
+      border-bottom: 2px solid #c8e6c9;
+      padding-bottom: 5px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 10px;
+      margin-bottom: 30px;
+      background-color: #fff;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    }
+
+    th,
+    td {
+      padding: 12px 15px;
+      text-align: left;
+      border-bottom: 1px solid #ddd;
+    }
+
+    th {
+      background-color: #a5d6a7;
+      color: #1b5e20;
+    }
+
+    header {
+      height: 350px;
+      background-color: #fffcfc;
+      display: flex;
+      align-items: center;
+      padding: 60 40px;
+      color: green;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);
+      font-weight: bold;
+      font-size: 24px;
+      gap: 10px;
+      z-index: 1000;
+    }
+
+    header .logo-text {
+      font-size: 200px;
+    }
+
+    header .logo-text sup {
+      font-size: 160px;
+      vertical-align: super;
+      color: darkgreen;
+    }
+
+    header .site-address {
+      color: #ffffff;
+      font-size: 160px;
+      user-select: text;
+    }
+
+    tr:hover {
+      background-color: #f1f8e9;
+    }
+
+    h1 {
+      text-align: center;
+    }
+
+    code {
+      background-color: #e8f5e9;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 0.95em;
+    }
+
+    nav ul {
+      list-style-type: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      /* center the items */
+    }
+
+    nav {
+      background-color: #61a988;
+      /* dark green background */
+      padding: 10px 0;
+    }
+
+    nav ul li {
+      margin: 0 20px;
+    }
+
+    nav ul li a {
+      text-decoration: none;
+      color: white;
+      font-size: 18px;
+      padding: 8px 16px;
+      border-radius: 5px;
+      transition: background-color 0.3s ease;
+    }
+
+    nav ul li a:hover {
+      background-color: #86c06b;
+    }
+
+    button {
+      background-color: #1c95ff;
+      color: #1c95ff;
+      border: none;
+      padding: 10px 20px;
+      font-size: 16px;
+      font-weight: bold;
+      border-radius: 8px;
+      transition: background-color 0.3s ease, transform 0.2s ease;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f4f6f9;
+      color: #333;
+      padding: 20px;
+      line-height: 1.6;
+    }
+
+    h2 {
+      color: #2a7f62;
+      font-size: 28px;
+      margin-bottom: 20px;
+    }
+
+    h3 {
+      color: #1f4e79;
+      font-size: 20px;
+      margin-top: 25px;
+      margin-bottom: 10px;
+    }
+
+    p {
+      margin-bottom: 10px;
+    }
+
+    pre {
+      background-color: #eef1f5;
+      padding: 12px;
+      border-left: 5px solid #2a7f62;
+      overflow-x: auto;
+      font-size: 14px;
+      margin-bottom: 20px;
+      border-radius: 5px;
+    }
+
+    code {
+      font-family: 'Courier New', monospace;
+      color: #1e1e1e;
+      display: block;
+    }
+  </style>
+</head>
+
+<body>
+
+  <h1>🛠️Visual Studio Code Features - DocsToSheets</h1>
+  <header class="navbar">
+    <div class="logo-container">
+      <img src="logo.png" alt="Logo" class="logo" />
+    </div>
+    </div>
+  </header>
+
+  <table>
+    <tr>
+      <th>Feature</th>
+      <th>Description</th>
+      <th>Why It's Useful</th>
+    </tr>
+    <tr>
+      <td>Syntax Highlighting</td>
+      <td>Colors keywords, variables, and syntax elements for better visibility.</td>
+      <td>Improves code readability and helps detect errors faster.</td>
+    </tr>
+    <tr>
+      <td>IntelliSense</td>
+      <td>Provides smart code completions based on context and language intelligence.</td>
+      <td>Saves time by suggesting functions, parameters, and syntax as you type.</td>
+    </tr>
+    <tr>
+      <td>Code Snippets</td>
+      <td>Allows quick insertion of reusable templates like <code>for</code>, <code>if</code>, and functions.</td>
+      <td>Boosts productivity by avoiding repetitive typing for common code structures.</td>
+    </tr>
+    <tr>
+      <td>Code Folding</td>
+      <td>Lets you collapse or expand sections of code such as functions or classes.</td>
+      <td>Makes navigation easier in large files by focusing only on relevant parts.</td>
+    </tr>
+    <tr>
+      <td>Bracket Matching</td>
+      <td>Automatically highlights matching opening and closing brackets.</td>
+      <td>Prevents syntax issues and helps debug nested structures efficiently.</td>
+    </tr>
+  </table>
+  <h3>1. Syntax Highlighting</h3>
+  <p>Colors keywords, variables, and syntax elements to make the code easier to read and debug.</p>
+  <pre><code>// JavaScript Example
+function greet(name) {
+  console.log("Hello, " + name + "!");
+}</code></pre>
+
+  <h3>2. IntelliSense</h3>
+  <p>Provides smart suggestions and auto-completion based on the language and context.</p>
+  <pre><code>// Typing 'console.' will suggest methods like log(), warn(), error()
+console.log("VS Code helps you code faster!");
+</code></pre>
+
+  <h3>3. Code Snippets</h3>
+  <p>Allows inserting templates like for-loops, if-conditions, etc., quickly using shortcuts or tab completion.</p>
+  <pre><code>// Example Snippet: for-loop in JavaScript
+for (let i = 0; i < 5; i++) {
+  console.log(i);
+}
+</code></pre>
+
+  <h3>4. Code Folding</h3>
+  <p>Lets you collapse or expand blocks of code to focus on what matters.</p>
+  <pre><code>// You can collapse this function in VS Code
+function calculateSum(a, b) {
+  let sum = a + b;
+  return sum;
+}
+</code></pre>
+
+  <h3>5. Bracket Matching</h3>
+  <p>Highlights the matching bracket, brace, or parenthesis when your cursor is next to one.</p>
+  <pre><code>// Bracket matching makes it easier to find block boundaries
+if (x > 0) {
+  console.log("Positive number");
+}
+</code></pre>
+
+  <h3>Search & Navigation</h3>
+  <p><strong>Ctrl + P</strong> - Quick file navigation by file name</p>
+  <p><strong>Ctrl + Shift + O</strong> - Go to symbol in file</p>
+  <p><strong>Ctrl + T</strong> - Go to symbol across all files</p>
+
+  <pre><code>// Example usage:
+Press Ctrl + P and type index.html to open that file quickly.</code></pre>
+
+  <h3>Editing Tools</h3>
+  <p><strong>Alt + Click</strong> - Add multiple cursors</p>
+  <p><strong>Shift + Alt + Down/Up</strong> - Copy current line below/above</p>
+  <p><strong>Ctrl + Shift + K</strong> - Delete current line</p>
+  <p><strong>Ctrl + /</strong> - Toggle line comment</p>
+
+  <pre><code>// Sample multi-line comment:
+let x = 10;  // Press Ctrl + / to comment/uncomment
+let y = 20;</code></pre>
+
+  <h3>File Management</h3>
+  <p><strong>Ctrl + N</strong> - New file</p>
+  <p><strong>Ctrl + S</strong> - Save current file</p>
+  <p><strong>Ctrl + Shift + S</strong> - Save As</p>
+  <p><strong>Ctrl + W</strong> - Close active tab</p>
+
+  <h3>IntelliSense & Snippets</h3>
+  <p><strong>Ctrl + Space</strong> - Trigger IntelliSense</p>
+  <p><strong>Tab</strong> - Expand snippet</p>
+  <h3>Git Integration</h3>
+  <p><strong>Ctrl + Shift + G</strong> - Open Source Control tab</p>
+  <p><strong>Stage/Commit/Push</strong> - Use buttons or right-click files</p>
+
+  <h3>Extensions</h3>
+  <p><strong>Ctrl + Shift + X</strong> - Open Extensions sidebar</p>
+  <p>Install useful tools like Prettier, ESLint, Python, etc.</p>
+
+  <h3>Terminal</h3>
+  <p><strong>Ctrl + `</strong> - Toggle integrated terminal</p>
+  <p><strong>Ctrl + Shift + `</strong> - Create new terminal</p>
+
+  <pre><code>// Run this in terminal to check Node version:
+node -v</code></pre>
+
+  <h3> Zen Mode & Split View</h3>
+  <p><strong>Ctrl + B</strong> - Toggle sidebar</p>
+  <p><strong>Ctrl + \</strong> - Split editor</p>
+  <p><strong>F11</strong> - Fullscreen</p>
+  <p><strong>Ctrl + K Z</strong> - Zen mode</p>
+  <div>
+    <nav>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="https://forms.gle/j2bYyeH9ESD5VXre8">Feedback</a></li>
+      </ul>
+    </nav>
+  </div>
+</body>
+
+</html>

@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>📊 Google Firebase - Complete Overview</title>
+  <link rel="icon" type="image/png" href="logo.png">
+
+  <style>
+    body {
+      font-family: "Times New Roman", Times, serif;
+      background-color: #f9fef9;
+      color: #333;
+      padding: 20px;
+    }
+
+    h2 {
+      color: #2e7d32;
+      margin-top: 40px;
+      border-bottom: 2px solid #c8e6c9;
+      padding-bottom: 5px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 10px;
+      margin-bottom: 30px;
+      background-color: #fff;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    }
+
+    th,
+    td {
+      padding: 12px 15px;
+      text-align: left;
+      border-bottom: 1px solid #ddd;
+    }
+
+    th {
+      background-color: #a5d6a7;
+      color: #1b5e20;
+    }
+
+    header {
+      height: 350px;
+      background-color: #fffcfc;
+      display: flex;
+      align-items: center;
+      padding: 60 40px;
+      color: green;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);
+      font-weight: bold;
+      font-size: 24px;
+      gap: 10px;
+      z-index: 1000;
+    }
+
+    header .logo-text {
+      font-size: 200px;
+    }
+
+    header .logo-text sup {
+      font-size: 160px;
+      vertical-align: super;
+      color: darkgreen;
+    }
+
+    header .site-address {
+      color: #ffffff;
+      font-size: 160px;
+      user-select: text;
+    }
+
+    tr:hover {
+      background-color: #f1f8e9;
+    }
+
+    h1 {
+      text-align: center;
+    }
+
+    code {
+      background-color: #e8f5e9;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 0.95em;
+    }
+
+    nav ul {
+      list-style-type: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      /* center the items */
+    }
+
+    nav {
+      background-color: #61a988;
+      /* dark green background */
+      padding: 10px 0;
+    }
+
+    nav ul li {
+      margin: 0 20px;
+    }
+
+    nav ul li a {
+      text-decoration: none;
+      color: white;
+      font-size: 18px;
+      padding: 8px 16px;
+      border-radius: 5px;
+      transition: background-color 0.3s ease;
+    }
+
+    nav ul li a:hover {
+      background-color: #86c06b;
+    }
+
+    button {
+      background-color: #1c95ff;
+      color: #1c95ff;
+      border: none;
+      padding: 10px 20px;
+      font-size: 16px;
+      font-weight: bold;
+      border-radius: 8px;
+      transition: background-color 0.3s ease, transform 0.2s ease;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f4f6f9;
+      color: #333;
+      padding: 20px;
+      line-height: 1.6;
+    }
+
+    h2 {
+      color: #2a7f62;
+      font-size: 28px;
+      margin-bottom: 20px;
+    }
+
+    h3 {
+      color: #1f4e79;
+      font-size: 20px;
+      margin-top: 25px;
+      margin-bottom: 10px;
+    }
+
+    p {
+      margin-bottom: 10px;
+    }
+
+    pre {
+      background-color: #eef1f5;
+      padding: 12px;
+      border-left: 5px solid #2a7f62;
+      overflow-x: auto;
+      font-size: 14px;
+      margin-bottom: 20px;
+      border-radius: 5px;
+    }
+
+    code {
+      font-family: 'Courier New', monospace;
+      color: #1e1e1e;
+      display: block;
+    }
+  </style>
+</head>
+
+<body>
+  <h1>📊 Google Firebase - DocsToSheets</h1>
+  <header class="navbar">
+    <div class="logo-container">
+      <div class="logo-container">
+        <img src="logo.png" alt="Logo" class="logo" />
+      </div>
+    </div>
+  </header>
+  <h2>What is Firebase?</h2>
+  <p>
+    Firebase is a comprehensive app development platform and Backend-as-a-Service (BaaS) provided by Google.
+    It helps developers build, improve, and grow mobile and web applications quickly without managing infrastructure.
+    Firebase offers a variety of tools and services that cover backend, analytics, user engagement, and app quality.
+  </p>
+
+  <hr />
+
+  <h2>Key Features and Services of Firebase</h2>
+  <ul>
+    <li><strong>Realtime Database</strong><br />
+      A cloud-hosted NoSQL database that lets you store and sync data between your users in realtime.
+      Data is synced across all clients in milliseconds, enabling live collaborative apps.
+    </li>
+    <li><strong>Cloud Firestore</strong><br />
+      A flexible, scalable database for mobile, web, and server development from Firebase and Google Cloud Platform.
+      It supports advanced querying, offline data access, and hierarchical data storage.
+    </li>
+    <li><strong>Authentication</strong><br />
+      Firebase Authentication provides backend services to authenticate users using email/password, phone numbers,
+      or federated identity providers like Google, Facebook, Twitter, and GitHub.
+    </li>
+    <li><strong>Cloud Functions</strong><br />
+      Run backend code automatically in response to events triggered by Firebase features or HTTPS requests,
+      without managing your own servers.
+    </li>
+    <li><strong>Cloud Storage</strong><br />
+      Securely upload and store user-generated content such as photos and videos, with robust security rules and global
+      CDN.
+    </li>
+    <li><strong>Hosting</strong><br />
+      Fast and secure static web hosting for web apps, landing pages, and microservices with SSL by default.
+    </li>
+    <li><strong>Analytics</strong><br />
+      Free app analytics that provide insights on user engagement and behavior, helping optimize app marketing and
+      performance.
+    </li>
+    <li><strong>Crashlytics</strong><br />
+      Real-time crash reporting to track, prioritize, and fix stability issues that impact user experience.
+    </li>
+    <li><strong>Performance Monitoring</strong><br />
+      Gain insights into your app’s performance from the user’s perspective and troubleshoot bottlenecks.
+    </li>
+    <li><strong>Remote Config</strong><br />
+      Dynamically change the behavior and appearance of your app without publishing an update.
+    </li>
+    <li><strong>Test Lab</strong><br />
+      Run tests on a variety of devices hosted in Google data centers to ensure app quality.
+    </li>
+    <li><strong>In-App Messaging</strong><br />
+      Engage users with targeted, contextual messages within your app.
+    </li>
+    <li><strong>Cloud Messaging (FCM)</strong><br />
+      Send notifications and messages reliably to Android, iOS, and web clients.
+    </li>
+    <li><strong>Dynamic Links</strong><br />
+      Create deep links that survive the app installation process, providing a seamless onboarding experience.
+    </li>
+    <li><strong>Machine Learning Kit</strong><br />
+      Add machine learning features to your app with ready-to-use APIs or custom models.
+    </li>
+  </ul>
+
+  <hr />
+
+  <h2>Example Uses of Firebase</h2>
+  <ul>
+    <li>Building chat or collaboration apps with real-time sync (Realtime Database, Firestore).</li>
+    <li>Implementing secure and easy user sign-up/login flows (Authentication).</li>
+    <li>Hosting your single-page application or website with global CDN (Hosting).</li>
+    <li>Automating backend logic such as sending welcome emails or cleaning data (Cloud Functions).</li>
+    <li>Tracking and analyzing user engagement to improve app experience (Analytics).</li>
+    <li>Sending push notifications for promotions or reminders (Cloud Messaging).</li>
+    <li>Dynamically updating app UI for special events or A/B testing (Remote Config).</li>
+    <li>Quickly diagnosing app crashes and bugs to improve stability (Crashlytics).</li>
+  </ul>
+
+  <hr />
+
+  <h2>Sample Firebase Setup Code Snippet (Web)</h2>
+  <pre><code>&lt;!-- Add Firebase SDKs --&gt;
+&lt;script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js"&gt;&lt;/script&gt;
+&lt;script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth.js"&gt;&lt;/script&gt;
+&lt;script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore.js"&gt;&lt;/script&gt;
+
+&lt;script&gt;
+  // Your Firebase config object
+  const firebaseConfig = {
+    apiKey: "YOUR_API_KEY",
+    authDomain: "your-project.firebaseapp.com",
+    projectId: "your-project",
+    storageBucket: "your-project.appspot.com",
+    messagingSenderId: "SENDER_ID",
+    appId: "APP_ID"
+  };
+
+  // Initialize Firebase
+  const app = firebase.initializeApp(firebaseConfig);
+
+  // Initialize services
+  const auth = firebase.auth();
+  const db = firebase.firestore();
+
+  // Example: Adding data to Firestore
+  db.collection("users").add({
+    name: "John Doe",
+    email: "john@example.com"
+  }).then(() =&gt; {
+    console.log("User added!");
+  }).catch(error =&gt; {
+    console.error("Error adding user: ", error);
+  });
+&lt;/script&gt;
+</code></pre>
+  <div>
+    <nav>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="https://forms.gle/j2bYyeH9ESD5VXre8">Feedback</a></li>
+      </ul>
+    </nav>
+  </div>
+</body>
+
+</html>

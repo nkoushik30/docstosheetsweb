@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sign In - DocsToSheets</title>
+  <link rel="icon" type="image/png" href="logo.png">
+
+  <meta name="theme-color" content="#1e88e5" />
+  <style>
+    body {
+      margin: 0;
+      font-family: "Times New Roman", Times, serif;
+      background-color: #f4f6f9;
+      color: #333;
+    }
+
+    header {
+      background-color: #f6f6f6;
+      color: rgb(0, 0, 0);
+      padding: 15px 30px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-size: 1.5rem;
+      font-weight: bold;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 15px;
+      padding: 0;
+      margin: 0;
+    }
+
+    nav a {
+      color: rgb(0, 0, 0);
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    main {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 40px 20px;
+      min-height: calc(100vh - 160px);
+    }
+
+    .signin-container {
+      background-color: #ffffff;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+      max-width: 400px;
+      width: 100%;
+    }
+
+    .signin-header h1 {
+      margin-bottom: 10px;
+    }
+
+    .signin-header p {
+      color: #000000;
+      margin-bottom: 25px;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 6px;
+      font-weight: 500;
+    }
+
+    .form-group input {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 1rem;
+    }
+
+    .signin-button-large {
+      width: 100%;
+      padding: 12px;
+      background-color: #995e1a;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .signin-button-large:hover {
+      background-color: #884f14;
+    }
+
+    .form-footer {
+      margin-top: 20px;
+      text-align: center;
+    }
+
+    .form-footer a {
+      color: #995e1a;
+      text-decoration: none;
+    }
+
+    .form-footer a:hover {
+      text-decoration: underline;
+    }
+
+    .back-home {
+      display: block;
+      margin-top: 10px;
+      color: #888;
+      font-size: 0.9rem;
+    }
+
+    footer {
+      background-color: #000000;
+      padding: 15px 20px;
+      text-align: center;
+      font-size: 0.9rem;
+      color: #ffffff;
+    }
+  </style>
+
+  <script src="js/firebase-config.js"></script>
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.10/firebase-app.js";
+    import {
+      getAuth,
+      signInWithEmailAndPassword,
+      GoogleAuthProvider,
+      signInWithPopup
+    } from "https://www.gstatic.com/firebasejs/9.6.10/firebase-auth.js";
+    import {
+      getFirestore,
+      doc,
+      setDoc
+    } from "https://www.gstatic.com/firebasejs/9.6.10/firebase-firestore.js";
+
+    const app = initializeApp(window.docsToSheetsFirebaseConfig);
+    const auth = getAuth(app);
+    const db = getFirestore(app);
+    const provider = new GoogleAuthProvider();
+
+    document.addEventListener("DOMContentLoaded", () => {
+      const signinForm = document.getElementById("signin-form");
+
+      // ✅ Handle email/password sign-in
+      signinForm.addEventListener("submit", async (e) => {
+        e.preventDefault();
+        clearMessages();
+
+        const email = document.getElementById("email").value.trim();
+        const password = document.getElementById("password").value.trim();
+        const submitButton = signinForm.querySelector('button[type="submit"]');
+        const originalText = submitButton.textContent;
+
+        submitButton.textContent = "Signing In...";
+        submitButton.disabled = true;
+
+        try {
+          const userCredential = await signInWithEmailAndPassword(auth, email, password);
+          showSuccess("Sign in successful! Redirecting...");
+          setTimeout(() => window.location.href = "index.html", 1500);
+        } catch (error) {
+          console.error("Sign-in failed:", error.code);
+          switch (error.code) {
+            case "auth/user-not-found":
+              showError("No user found with this email. Please sign up.");
+              break;
+            case "auth/wrong-password":
+              showError("Incorrect password. Please try again.");
+              break;
+            case "auth/invalid-email":
+              showError("Invalid email address.");
+              break;
+            default:
+              showError("Unable to sign in. Please check your details and try again.");
+          }
+        } finally {
+          submitButton.textContent = originalText;
+          submitButton.disabled = false;
+        }
+      });
+
+      // ✅ Handle Google sign-in
+      document.getElementById("google-signin").addEventListener("click", async () => {
+        clearMessages();
+        try {
+          const result = await signInWithPopup(auth, provider);
+          const user = result.user;
+
+          // Save or update user in Firestore
+          await setDoc(doc(db, "users", user.uid), {
+            name: user.displayName,
+            email: user.email,
+            photo: user.photoURL,
+            provider: "google",
+            lastLogin: new Date()
+          }, { merge: true });
+
+          window.location.href = "index.html";
+        } catch (error) {
+          showError("Google Sign-In failed. Please try again.");
+          console.error("Google sign-in failed:", error.code);
+        }
+      });
+
+      // ✅ Show error message
+      function showError(message) {
+        let div = document.getElementById("error-message");
+        if (!div) {
+          div = document.createElement("div");
+          div.id = "error-message";
+          div.style.backgroundColor = "#ffebee";
+          div.style.color = "#c62828";
+          div.style.padding = "10px";
+          div.style.marginBottom = "10px";
+          div.style.borderRadius = "5px";
+          signinForm.parentNode.insertBefore(div, signinForm);
+        }
+        div.textContent = message;
+        div.style.display = "block";
+      }
+
+      // ✅ Show success message
+      function showSuccess(message) {
+        let div = document.getElementById("success-message");
+        if (!div) {
+          div = document.createElement("div");
+          div.id = "success-message";
+          div.style.backgroundColor = "#e8f5e9";
+          div.style.color = "#2e7d32";
+          div.style.padding = "10px";
+          div.style.marginBottom = "10px";
+          div.style.borderRadius = "5px";
+          signinForm.parentNode.insertBefore(div, signinForm);
+        }
+        div.textContent = message;
+        div.style.display = "block";
+      }
+
+      // ✅ Hide old messages
+      function clearMessages() {
+        const error = document.getElementById("error-message");
+        const success = document.getElementById("success-message");
+        if (error) error.style.display = "none";
+        if (success) success.style.display = "none";
+      }
+    });
+  </script>
+
+</head>
+
+<body>
+  <header>
+    <div class="logo">DocsToSheets</div>
+    <nav>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <div class="signin-container">
+      <div class="signin-header">
+        <h1>Sign In</h1>
+        <p>Welcome back! Please enter your details</p>
+      </div>
+
+      <form id="signin-form">
+        <div id="error-message"></div>
+        <div id="success-message"></div>
+
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input type="email" id="email" name="email" required />
+        </div>
+
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input type="password" id="password" name="password" required />
+        </div>
+
+        <button type="submit" class="signin-button-large">Sign In</button>
+        <div style="margin-top: 20px; text-align: center;">
+          <button type="button" id="google-signin"
+            style="display: inline-flex; align-items: center; gap: 10px; background: white; border: 1px solid #ccc; padding: 10px 20px; border-radius: 8px; cursor: pointer; font-weight: 500;">
+            <img src="https://developers.google.com/identity/images/g-logo.png" width="18" height="18"
+              alt="Google logo" />
+            Sign in with Google
+          </button>
+        </div>
+        <div class="form-footer">
+          <p>Forgot password? <a href="reset_password.html">Reset here</a></p>
+          <p>Don't have an account? <a href="signup.html">Sign up</a></p>
+          <a href="index.html" class="back-home">← Back to home</a>
+        </div>
+      </form>
+
+
+    </div>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 DocsToSheets. All rights reserved.</p>
+  </footer>
+</body>
+
+</html>
